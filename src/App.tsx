@@ -1,7 +1,9 @@
-import React from 'react';
+import React from "react";
+import "./App.css";
+import SignUp from "./pages/SignUp";
 
 const App: React.FC = () => {
-  return <h1>Init task</h1>;
+  return <SignUp />;
 };
 
 export default App;
