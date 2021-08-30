@@ -1,9 +1,16 @@
-.form {
+form {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 50px auto;
 }
 .links {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly])
+{
+  border-color: #26c6da;
+  box-shadow: none;
 }
