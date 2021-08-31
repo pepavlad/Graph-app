@@ -1,20 +1,12 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Navbar from "./components/layout/Navbar";
-import SignIn from "./components/auth/SignIn";
-import SignUp from "./components/auth/SignUp";
+import SignUp from "./pages/Auth/Auth";
+
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Navbar />
-        <Switch>
-          <Route exact path="/signin" component={SignIn} />
-          <Route exact path="/signup" component={SignUp} />
-        </Switch>
-      </div>
-    </BrowserRouter>
+    <div className="App">
+      <SignUp />
+    </div>
   );
 };
 
