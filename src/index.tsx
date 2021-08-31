@@ -6,10 +6,12 @@ import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { rootReducer } from "./redux/reducers/index";
 import { initializeApp } from "firebase/app";
-
+import firebase from "firebase/app";
 const firebaseConfig = {
   apiKey: "AIzaSyAUDcea0Mz5PCf9u6R6ckEzXm7HEfoFa_Q",
   authDomain: "graph-app-9a5a3.firebaseapp.com",
+  databaseURL:
+    "https://graph-app-9a5a3-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "graph-app-9a5a3",
   storageBucket: "graph-app-9a5a3.appspot.com",
   messagingSenderId: "175472711113",
@@ -17,7 +19,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const firebase = initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
