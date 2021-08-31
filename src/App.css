@@ -1,6 +1,24 @@
 form {
-  max-width: 600px;
+  max-width: 400px;
   margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+}
+.register, .login {
+  width: 250px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-evenly;
+}
+.btn {
+  width: 90px;
+  margin: 10px auto;
+}
+.loadingPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
 }
 .links {
   display: flex;
