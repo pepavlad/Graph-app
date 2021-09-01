@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 
 export const signIn = (email: string, password: string) => {
-	return firebase.auth().signInWithEmailAndPassword(email, password);
+		return firebase.auth().signInWithEmailAndPassword(email, password);
 }
 export const signOut = () => {
 	return firebase.auth().signOut();
