@@ -1,5 +1,4 @@
 import { Dispatch } from "redux";
-
 import * as AuthService from "../../services/auth";
 import {
   signInAction,
@@ -33,10 +32,11 @@ export const signIn = (email: string, password: string, history: any) =>{
     AuthService.signIn(email, password)
     .then(() => {
       dispatch(successSignInAction());
-      history.push('/home')
+      history.push('/')
     })
     .catch((err) => {
-      dispatch(errorSignInAction(err.message))
+      console.log(err)
+      dispatch(errorSignInAction(err.message))      
     })
   }
 }

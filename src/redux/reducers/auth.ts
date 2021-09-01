@@ -24,8 +24,7 @@ export const reducer = handleActions(
     }),
     [AuthActionTypes.SUCCESS_SIGN_IN]: (state: State) => ({
         ...state,
-		signInError: 'No error',
-		signOutError: '',
+		signInError: '',
         isLoading: false,
     }),
     [AuthActionTypes.ERROR_SIGN_IN]: (state: State,  action: AnyAction) => ({
@@ -39,8 +38,7 @@ export const reducer = handleActions(
     }),
     [AuthActionTypes.SUCCESS_SIGN_OUT]: (state: State) => ({
         ...state,
-		signOutError: 'No error',
-		signInError: '',
+		signOutError: '',
         isLoading: false,
     }),
     [AuthActionTypes.ERROR_SIGN_OUT]: (state: State,  action: AnyAction) => ({

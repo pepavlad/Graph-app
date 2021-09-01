@@ -1,29 +1,21 @@
 import React from "react";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../redux/thunk/auth";
 import { Link, useHistory } from "react-router-dom";
 import firebase from "firebase";
 const SignInForm: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-
+  const state = useSelector((state) => state);
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const { email, password } = event.target as HTMLInputElement & {
       email: { value: string };
       password: { value: string };
     };
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        if (user.emailVerified) {
-          dispatch(signIn(email.value, password.value, history));
-        } else {
-          history.push("/confirm");
-        }
-      }
-    });
+    dispatch(signIn(email.value, password.value, history));
   };
 
   return (
