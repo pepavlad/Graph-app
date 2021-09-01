@@ -24,10 +24,26 @@ export const reducer = handleActions(
     }),
     [AuthActionTypes.SUCCESS_SIGN_IN]: (state: State) => ({
         ...state,
-		signInError: '',
+		signInError: 'No error',
+		signOutError: '',
         isLoading: false,
     }),
     [AuthActionTypes.ERROR_SIGN_IN]: (state: State,  action: AnyAction) => ({
+      ...state,
+	  signInError: action.payload,
+      isLoading: false,
+    }),
+    [AuthActionTypes.SIGNING_OUT]: (state: State) => ({
+      ...state,
+      isLoading: true,
+    }),
+    [AuthActionTypes.SUCCESS_SIGN_OUT]: (state: State) => ({
+        ...state,
+		signOutError: 'No error',
+		signInError: '',
+        isLoading: false,
+    }),
+    [AuthActionTypes.ERROR_SIGN_OUT]: (state: State,  action: AnyAction) => ({
       ...state,
 	  signInError: action.payload,
       isLoading: false,
