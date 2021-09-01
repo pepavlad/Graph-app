@@ -61,7 +61,7 @@ const SignUpForm: React.FC = () => {
       />
       <Button text={"Sign Up"} className="btn cyan lighten-3 z-depth-0" />
       <div className="login">
-        Already have an account? <Link to="/">Login</Link> now.
+        Already have an account? <Link to="/login">Login</Link> now.
       </div>
     </form>
   );

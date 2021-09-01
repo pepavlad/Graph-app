@@ -4,7 +4,7 @@ import Button from "../../components/Button/Button";
 import { useDispatch } from "react-redux";
 import { signIn } from "../../redux/thunk/auth";
 import { Link, useHistory } from "react-router-dom";
-
+import firebase from "firebase";
 const SignInForm: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -15,7 +15,15 @@ const SignInForm: React.FC = () => {
       email: { value: string };
       password: { value: string };
     };
-    dispatch(signIn(email.value, password.value, history));
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        if (user.emailVerified) {
+          dispatch(signIn(email.value, password.value, history));
+        } else {
+          history.push("/confirm");
+        }
+      }
+    });
   };
 
   return (

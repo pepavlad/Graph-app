@@ -5,7 +5,7 @@ const SignedOutLinks: React.FC = () => {
   return (
     <ul className="links right">
       <li>
-        <NavLink to="/">Login</NavLink>
+        <NavLink to="/login">Login</NavLink>
       </li>
       <li>
         <NavLink to="/register">Register</NavLink>
