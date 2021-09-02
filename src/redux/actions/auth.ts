@@ -1,17 +1,17 @@
 import { createAction } from "redux-actions";
 
-export const AuthActionTypes = {
-  SIGNING_IN: "[Auth] SIGNING_IN",
-  SUCCESS_SIGN_IN: "[Auth] SUCCESS_SIGN_IN",
-  ERROR_SIGN_IN: "[Auth] ERROR_SIGN_IN",
+export enum AuthActionTypes {
+  SIGNING_IN = "[Auth] SIGNING_IN",
+  SUCCESS_SIGN_IN = "[Auth] SUCCESS_SIGN_IN",
+  ERROR_SIGN_IN = "[Auth] ERROR_SIGN_IN",
 
-  REGISTER: "[Auth] REGISTER",
-  SUCCESS_REGISTER: "[Auth] SUCCESS_REGISTER",
-  ERROR_REGISTER: "[Auth] ERROR_REGISTER",
+  REGISTER = "[Auth] REGISTER",
+  SUCCESS_REGISTER = "[Auth] SUCCESS_REGISTER",
+  ERROR_REGISTER = "[Auth] ERROR_REGISTER",
 
-  SIGNING_OUT: "[Auth] SIGNING_OUT",
-  SUCCESS_SIGN_OUT: "[Auth] SUCCESS_SIGN_OUT",
-  ERROR_SIGN_OUT: "[Auth] ERROR_SIGN_OUT",
+  SIGNING_OUT = "[Auth] SIGNING_OUT",
+  SUCCESS_SIGN_OUT = "[Auth] SUCCESS_SIGN_OUT",
+  ERROR_SIGN_OUT = "[Auth] ERROR_SIGN_OUT",
 };
 
 export const signInAction = createAction(AuthActionTypes.SIGNING_IN);

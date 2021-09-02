@@ -12,10 +12,10 @@ import {
   errorSignOutAction,
 } from "../actions/auth";
 
-export const register = (email: string, password: string, firstName: string, lastName: string, birthDate: string, history: any) =>{
+export const register = (email: string, password: string, firstName: string, lastName: string, age: string, history: any) =>{
   return (dispatch: Dispatch) => {
     dispatch(registerAction());
-    AuthService.register(email, password, firstName, lastName, birthDate)
+    AuthService.register(email, password, firstName, lastName, age)
     .then(() => {
       dispatch(successRegisterAction());
       history.push('/confirm')
@@ -27,7 +27,7 @@ export const register = (email: string, password: string, firstName: string, las
 }
 
 export const signIn = (email: string, password: string, history: any) =>{
-  return (dispatch: Dispatch): void => {
+  return (dispatch: Dispatch) => {
     dispatch(signInAction());
     AuthService.signIn(email, password)
     .then(() => {
@@ -35,7 +35,6 @@ export const signIn = (email: string, password: string, history: any) =>{
       history.push('/')
     })
     .catch((err) => {
-      console.log(err)
       dispatch(errorSignInAction(err.message))      
     })
   }

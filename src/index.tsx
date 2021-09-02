@@ -6,7 +6,7 @@ import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { rootReducer } from "./redux/reducers/index";
 import firebase from "firebase/app";
-
+import { composeWithDevTools } from "redux-devtools-extension";
 const firebaseConfig = {
   apiKey: "AIzaSyAUDcea0Mz5PCf9u6R6ckEzXm7HEfoFa_Q",
   authDomain: "graph-app-9a5a3.firebaseapp.com",
@@ -20,7 +20,10 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk))
+);
 
 ReactDOM.render(
   <Provider store={store}>

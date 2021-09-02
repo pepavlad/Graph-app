@@ -3,10 +3,11 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignUpForm from "./pages/SignUpForm/SignUpForm";
 import SignInForm from "./pages/SignInForm/SignInForm";
-import AppLoading from "./pages/AppLoading/AppLoading";
+import AppLoading from "./AppLoading";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import Confirm from "./pages/Confirm/Confirm";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 const App: React.FC = () => {
   return (
@@ -15,7 +16,7 @@ const App: React.FC = () => {
         <Navbar />
         <Switch>
           <Route exact path="/" component={AppLoading} />
-          <Route path="/home" component={Home} />
+          <ProtectedRoute path="/home" component={Home} />
           <Route path="/confirm" component={Confirm} />
           <Route path="/login" component={SignInForm} />
           <Route path="/register" component={SignUpForm} />

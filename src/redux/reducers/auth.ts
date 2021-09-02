@@ -1,7 +1,6 @@
 import { AnyAction } from 'redux'
-import { handleActions } from "redux-actions";
+import { createReducer } from '@reduxjs/toolkit';
 import { AuthActionTypes } from "../actions/auth";
-
 export interface State {
 	signInError: string;
 	registerError: string;
@@ -16,20 +15,20 @@ const initialState = {
 	isLoading: false,
 }
 
-export const reducer = handleActions(
+export const reducer = createReducer(initialState,
   {
     [AuthActionTypes.SIGNING_IN]: (state: State) => ({
       ...state,
       isLoading: true,
     }),
     [AuthActionTypes.SUCCESS_SIGN_IN]: (state: State) => ({
-        ...state,
-		signInError: '',
-        isLoading: false,
+      ...state,
+		  signInError: '',
+      isLoading: false,
     }),
     [AuthActionTypes.ERROR_SIGN_IN]: (state: State,  action: AnyAction) => ({
       ...state,
-	  signInError: action.payload,
+	    signInError: action.payload,
       isLoading: false,
     }),
     [AuthActionTypes.SIGNING_OUT]: (state: State) => ({
@@ -60,6 +59,5 @@ export const reducer = handleActions(
       registerError: action.payload,
       isLoading: false,
     }),
-  },
-  initialState
+  }
 );

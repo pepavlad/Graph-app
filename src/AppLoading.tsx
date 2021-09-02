@@ -4,6 +4,7 @@ import firebase from "firebase";
 
 const AppLoading: React.FC = () => {
   const history = useHistory();
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {

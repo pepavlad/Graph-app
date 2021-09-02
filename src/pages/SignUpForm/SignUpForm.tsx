@@ -8,16 +8,16 @@ import { Link, useHistory } from "react-router-dom";
 const SignUpForm: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-
+  const validateForm = () => {};
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const { email, password, firstName, lastName, birthDate } =
+    const { email, password, firstName, lastName, age } =
       event.target as HTMLInputElement & {
         email: { value: string };
         password: { value: string };
         firstName: { value: string };
         lastName: { value: string };
-        birthDate: { value: string };
+        age: { value: string };
       };
     dispatch(
       register(
@@ -25,7 +25,7 @@ const SignUpForm: React.FC = () => {
         password.value,
         firstName.value,
         lastName.value,
-        birthDate.value,
+        age.value,
         history
       )
     );
@@ -35,6 +35,7 @@ const SignUpForm: React.FC = () => {
     <form onSubmit={handleSubmit} className="white">
       <h5 className="grey-text text-draken-3">Sign Up</h5>
       <Input
+        required
         type="text"
         name="firstName"
         placeholder="First name"
@@ -45,18 +46,28 @@ const SignUpForm: React.FC = () => {
         name="lastName"
         placeholder="Last name"
         label="Last name"
+        required
       />
       <Input
-        type="text"
-        name="birthDate"
-        placeholder="Birth date"
-        label="Birth date"
+        type="number"
+        name="age"
+        placeholder="Your age"
+        label="Your age"
+        min="18"
+        required
       />
-      <Input type="email" name="email" placeholder="Email" label="Email" />
+      <Input
+        required
+        type="email"
+        name="email"
+        placeholder="Email"
+        label="Email"
+      />
       <Input
         type="password"
         name="password"
         placeholder="Password"
+        minLength={8}
         label="Password"
       />
       <Button text={"Sign Up"} className="btn cyan lighten-3 z-depth-0" />

@@ -4,11 +4,12 @@ import Button from "../../components/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../redux/thunk/auth";
 import { Link, useHistory } from "react-router-dom";
-import firebase from "firebase";
+import { RootState } from "../../redux/reducers";
+
 const SignInForm: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const state = useSelector((state) => state);
+  const state = useSelector((state: RootState) => state.authState);
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const { email, password } = event.target as HTMLInputElement & {
@@ -16,6 +17,7 @@ const SignInForm: React.FC = () => {
       password: { value: string };
     };
     dispatch(signIn(email.value, password.value, history));
+    console.log(state);
   };
 
   return (
