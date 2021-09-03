@@ -9,7 +9,7 @@ const Navbar: React.FC = () => {
   return (
     <nav className="nav-wrapper cyan lighten-3">
       <div className="container">
-        <Link to="/" className="brand-logo left">
+        <Link to="/home" className="brand-logo left">
           Graph-app
         </Link>
         {location.pathname === "/home" ? <SignedInLinks /> : <SignedOutLinks />}
