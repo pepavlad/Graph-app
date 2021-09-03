@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignUpForm from "./pages/SignUpForm/SignUpForm";
@@ -10,13 +10,18 @@ import Confirm from "./pages/Confirm/Confirm";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 const App: React.FC = () => {
+  const [isLogin, setIsLogin] = useState(false);
   return (
     <Router>
       <div className="App">
         <Navbar />
         <Switch>
-          <Route exact path="/" component={AppLoading} />
-          <ProtectedRoute path="/home" component={Home} />
+          <Route
+            exact
+            path="/"
+            component={() => <AppLoading setIsLogin={setIsLogin} />}
+          />
+          <ProtectedRoute path="/home" component={Home} isLogin={isLogin} />
           <Route path="/confirm" component={Confirm} />
           <Route path="/login" component={SignInForm} />
           <Route path="/register" component={SignUpForm} />

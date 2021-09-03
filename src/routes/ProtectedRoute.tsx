@@ -4,17 +4,18 @@ import { useAuthListener } from "./useAuthStatus";
 
 interface ProtectedRouteProps extends RouteProps {
   component: any;
+  isLogin: boolean;
 }
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   component: Component,
+  isLogin,
   ...rest
 }) => {
-  const loggedIn = useAuthListener();
   return (
     <Route
       {...rest}
       render={(props) => {
-        if (loggedIn) {
+        if (isLogin) {
           return <Component {...props} />;
         } else {
           console.log(1);
