@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 // import getUserName from "../../helpers/getUserName";
-const Home: React.FC = () => {
-  return (
-    <div className="home">
-      <canvas id="canvas" width="850" height="500"></canvas>
-    </div>
-  );
-};
+const Home: React.FC = () => (
+	<div className='home'>
+		<canvas id='canvas' width='850' height='500' />
+	</div>
+);
 
 export default Home;
