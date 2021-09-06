@@ -29,7 +29,7 @@ module.exports = {
 	devServer: {
 		open: true,
 		hot: true,
-		port: 3000,
+		port: 4000,
 		historyApiFallback: true,
 	},
 	module: {
@@ -73,7 +73,7 @@ module.exports = {
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
 			favicon: false,
-			template: 'src/index.html',
+			template: path.join(__dirname, 'src/index.html')
 		}),
 	].filter(Boolean),
 };

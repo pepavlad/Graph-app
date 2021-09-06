@@ -21,7 +21,7 @@ const App: React.FC = () => {
 						path='/'
 						component={() => <AppLoading setIsLogin={setIsLogin} />}
 					/>
-					<ProtectedRoute path='/home' component={Home} isLogin={isLogin} />
+					<Route path='/home' component={Home} />
 					<Route path='/confirm' component={Confirm} />
 					<Route path='/login' component={SignInForm} />
 					<Route path='/register' component={SignUpForm} />

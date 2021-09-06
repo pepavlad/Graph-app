@@ -20,7 +20,7 @@ const AppLoading: React.FC<AppLoadingProps> = ({ setIsLogin }) => {
 				}
 			} else {
 				setIsLogin(false);
-				history.push('/login');
+				history.push('/home');
 			}
 		});
 	}, [history]);

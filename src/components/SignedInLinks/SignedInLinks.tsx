@@ -23,7 +23,7 @@ const SignedInLinks: React.FC = () => {
 			</li>
 			<li>
 				<NavLink to='/'>
-					<i className='icon material-icons'>account_circle</i>
+					<i className='material-icons'>account_circle</i>
 				</NavLink>
 			</li>
 		</ul>
