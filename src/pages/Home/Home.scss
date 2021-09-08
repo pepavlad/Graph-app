@@ -11,9 +11,12 @@
 		box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
 	}
 	.btns{
-		width: 650px;
+		width: 680px;
 		display: flex;
 		justify-content: space-evenly;
+		.btn.move {
+			width: 40px;
+		}
 		.btn{
 			font-size: 12px;
 			align-items: center;

@@ -10,26 +10,27 @@ import Confirm from './pages/Confirm/Confirm';
 import ProtectedRoute from './routes/ProtectedRoute';
 
 const App: React.FC = () => {
-	const [isLogin, setIsLogin] = useState(false);
-	return (
-		<Router>
-			<div className='App'>
-				<Navbar />
-				<Switch>
-					<Route
-						exact
-						path='/'
-						component={() => <AppLoading setIsLogin={setIsLogin} />}
-					/>
-					<Route path='/home' component={Home} />
-					<Route path='/confirm' component={Confirm} />
-					<Route path='/login' component={SignInForm} />
-					<Route path='/register' component={SignUpForm} />
-					<Route path='*' component={() => <div>404 not found.</div>} />
-				</Switch>
-			</div>
-		</Router>
-	);
+  const [isLogin, setIsLogin] = useState(false);
+  return (
+    <Router>
+      <div className='App'>
+        <Navbar />
+        <Switch>
+          <Route
+            exact
+            path='/'
+            component={() => <AppLoading setIsLogin={setIsLogin} />}
+          />
+          {/* <ProtectedRoute isLogin={isLogin} path='/home' component={Home} /> */}
+          <Route path='/home' component={Home} />
+          <Route path='/confirm' component={Confirm} />
+          <Route path='/login' component={SignInForm} />
+          <Route path='/register' component={SignUpForm} />
+          <Route path='*' component={() => <div>404 not found.</div>} />
+        </Switch>
+      </div>
+    </Router>
+  );
 };
 
 export default App;
