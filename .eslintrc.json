@@ -38,6 +38,9 @@
 				"tsx": "never"
 			}
 		],
+		"no-nested-ternary": "off",
+		"array-callback-return": "off",
+		"consistent-return": "off",
 		"implicit-arrow-linebreak": "off",
 		"no-case-declarations": "off",
 		"no-param-reassign": "off",

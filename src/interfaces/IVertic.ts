@@ -3,5 +3,7 @@ export interface IVertic {
   x: number;
   y: number;
   num: number;
-  isSelected?: boolean;
+  isSelected: boolean;
+  isSelectedFirst: boolean;
+  isSelectedSecond: boolean;
 }

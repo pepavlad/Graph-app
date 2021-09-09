@@ -10,12 +10,33 @@ export interface GraphsState {
 
 const initialState = {
   vertics: [],
-  links: [[]]
+  links: [[]],
 };
 
-export const graphReducer = createReducer<GraphsState>(initialState, {
+export const graphReducer = createReducer<GraphsState, any>(initialState, {
   [GraphsActionTypes.ADD_VERTIC]: (state: GraphsState, action: AnyAction) => ({
-	...state,
-    vertics:[...state.vertics, action.payload]
+    ...state,
+    vertics: [...state.vertics, action.payload],
+  }),
+  [GraphsActionTypes.CONNECT_VERTICES]: (
+    state: GraphsState,
+    action: AnyAction
+  ) => ({
+    ...state,
+    links: [...state.links, action.payload],
+  }),
+  [GraphsActionTypes.UNSELECT_VERTICES]: (
+    state: GraphsState,
+  ) => ({
+    ...state,
+    vertics: state.vertics.map((vertic: IVertic) => {return {...vertic, isSelectedFirst: false, isSelectedSecond: false}}),
+  }),
+  [GraphsActionTypes.SELECT_VERTIC]: (
+    state: GraphsState,
+    action: AnyAction
+  ) => ({
+    ...state,
+    vertics: action.payload
+    // vertics: state.vertics.map((vertic: IVertic, index: number) => index === action.payload ? (!vertic.isSelected ? {...vertic, isSelectedFirst: true} : {...vertic, isSelectedSecond: true}) : vertic)
   }),
 });

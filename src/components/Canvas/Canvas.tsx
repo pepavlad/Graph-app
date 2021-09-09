@@ -1,11 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import draw from '../../helpers/addVertic';
-import addConnect from '../../helpers/addConnect';
-import drawConnect from '../../helpers/drawConnect';
+import { useDispatch, useSelector } from 'react-redux';
 import { IVertic } from '../../interfaces/IVertic';
 import render from '../../helpers/render';
-import addVertic from '../../redux/thunk/graphs';
+import {
+  addVertic,
+  selectVertic,
+  connectVertic,
+  unselectVertices,
+} from '../../redux/thunk/graphs';
+import { selectLinks, selectVertics } from '../../redux/selectors/graph';
 
 interface CanvasProps {
   btnType: string;
@@ -14,8 +17,8 @@ interface CanvasProps {
 const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
   const [numOfVertic, setNumOfVertic] = useState(0);
   const dispatch = useDispatch();
-  // const [vertics, setVirtics] = useState<IVertic[]>([]);
-  // const [toConnectVertics, setToConnectVertics] = useState<IVertic[]>([]);
+  const links = useSelector(selectLinks);
+  const vertics = useSelector(selectVertics);
   const ref = useRef<HTMLCanvasElement | null>(null);
   const canvasCtxRef = React.useRef<CanvasRenderingContext2D | null>(null);
 
@@ -28,14 +31,7 @@ const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
           dispatch(addVertic(event, ref, ctx, numOfVertic, setNumOfVertic));
           break;
         case 'connect':
-          // addConnect(
-          //   event,
-          //   ctx,
-          //   canvasCtxRef,
-          //   vertics,
-          //   ref,
-          //   setToConnectVertics
-          // );
+          dispatch(selectVertic(event, ctx, vertics));
           break;
         default:
           break;
@@ -43,13 +39,17 @@ const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
     }
   }
 
-  // useEffect(() => {
-  //   if (toConnectVertics.length === 2) {
-  //     render(vertics, canvasCtxRef, ref, setToConnectVertics);
-  //     drawConnect(ref, canvasCtxRef, toConnectVertics);
-  //     setToConnectVertics([]);
-  //   }
-  // }, [vertics, toConnectVertics, setToConnectVertics]);
+  useEffect(() => {
+    if (
+      vertics.filter(
+        (elem: IVertic) => elem.isSelectedFirst || elem.isSelectedSecond
+      ).length === 2
+    ) {
+      dispatch(connectVertic(vertics, links));
+      dispatch(unselectVertices());
+    }
+    render(vertics, canvasCtxRef, ref, links);
+  }, [vertics, links]);
 
   return (
     <canvas

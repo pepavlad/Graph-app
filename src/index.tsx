@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import firebase from 'firebase/app';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { rootReducer } from './redux/reducers/index';
+import rootReducer from './redux/reducers/index';
 import App from './App';
 
 const firebaseConfig = {
