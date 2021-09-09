@@ -13,10 +13,6 @@ const drawVertic = (
 ) => {
   const circle = new Path2D();
   ctx!.beginPath();
-  ctx!.globalCompositeOperation = 'destination-out';
-  ctx!.arc(elem.x, elem.y, 16.5, 0, 2 * Math.PI);
-  ctx!.stroke();
-  ctx!.globalCompositeOperation = 'source-over';
   circle.arc(elem.x, elem.y, 16.5, 0, 2 * Math.PI);
   ctx!.fillStyle = circleColor;
   ctx!.fill(circle);

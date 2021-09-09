@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import * as auth from './auth';
+import * as graphs from './graphs'
 
-export const rootReducer = combineReducers({
+const rootReducer = combineReducers({
   authState: auth.reducer,
+  graphState: graphs.graphReducer
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
+export default rootReducer;
