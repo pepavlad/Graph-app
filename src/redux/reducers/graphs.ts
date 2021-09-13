@@ -13,7 +13,7 @@ const initialState = {
   links: [[]],
 };
 
-export const graphReducer = createReducer<GraphsState, any>(initialState, {
+export const graphReducer = createReducer<GraphsState>(initialState, {
   [GraphsActionTypes.ADD_VERTIC]: (state: GraphsState, action: AnyAction) => ({
     ...state,
     vertics: [...state.vertics, action.payload],
@@ -37,6 +37,5 @@ export const graphReducer = createReducer<GraphsState, any>(initialState, {
   ) => ({
     ...state,
     vertics: action.payload
-    // vertics: state.vertics.map((vertic: IVertic, index: number) => index === action.payload ? (!vertic.isSelected ? {...vertic, isSelectedFirst: true} : {...vertic, isSelectedSecond: true}) : vertic)
   }),
 });

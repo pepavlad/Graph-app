@@ -6,5 +6,9 @@ const rootReducer = combineReducers({
   authState: auth.reducer,
   graphState: graphs.graphReducer
 });
+export interface AppState {
+  authState: auth.State;
+  graphState: graphs.GraphsState;
+}
 
 export default rootReducer;

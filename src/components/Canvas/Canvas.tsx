@@ -1,14 +1,16 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { IVertic } from '../../interfaces/IVertic';
-import render from '../../helpers/render';
-import {
-  addVertic,
-  selectVertic,
-  connectVertic,
-  unselectVertices,
-} from '../../redux/thunk/graphs';
 import { selectLinks, selectVertics } from '../../redux/selectors/graph';
+import { IVertic } from '../../interfaces/IVertic';
+import connectVertic from './helpers/connectVetrics';
+import selectVertic from './helpers/selectVertic';
+import AddVertic from './helpers/addVertic';
+import render from './helpers/render';
+import {
+  connectVerticAction,
+  addVerticAction,
+  unselectVerticAction,
+} from '../../redux/actions/graphs';
 
 interface CanvasProps {
   btnType: string;
@@ -22,16 +24,17 @@ const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
   const ref = useRef<HTMLCanvasElement | null>(null);
   const canvasCtxRef = React.useRef<CanvasRenderingContext2D | null>(null);
 
-  function eventFunc(event: any) {
+  function eventFunc(event: React.MouseEvent<HTMLCanvasElement>) {
     if (ref.current) {
       canvasCtxRef.current = ref.current.getContext('2d');
       const ctx = canvasCtxRef.current;
       switch (btnType) {
         case 'add':
-          dispatch(addVertic(event, ref, ctx, numOfVertic, setNumOfVertic));
+          dispatch(addVerticAction(AddVertic(event, ref, ctx, numOfVertic)!));
+          setNumOfVertic(numOfVertic + 1);
           break;
         case 'connect':
-          dispatch(selectVertic(event, ctx, vertics));
+          selectVertic(event, ctx, vertics, dispatch);
           break;
         default:
           break;
@@ -46,7 +49,7 @@ const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
       ).length === 2
     ) {
       dispatch(connectVertic(vertics, links));
-      dispatch(unselectVertices());
+      dispatch(unselectVerticAction());
     }
     render(vertics, canvasCtxRef, ref, links);
   }, [vertics, links]);

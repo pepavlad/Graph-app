@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
+import { AppState } from '../reducers';
 
-const authState = (state: any) => state.authState;
+const authState = (state: AppState) => state.authState;
 
 const selectSignInError = createSelector(authState, state => state.signInError);
 

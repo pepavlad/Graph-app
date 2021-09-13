@@ -1,4 +1,4 @@
-import { IVertic } from '../interfaces/IVertic';
+import { IVertic } from '../../../interfaces/IVertic';
 
 const drawVertic = (
   ctx: CanvasRenderingContext2D | null,

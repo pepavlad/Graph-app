@@ -1,5 +1,5 @@
 import React from 'react';
-import { IVertic } from '../interfaces/IVertic';
+import { IVertic } from '../../../interfaces/IVertic';
 import drawVertic from './drawVertic';
 
 const render = (
