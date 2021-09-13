@@ -14,13 +14,17 @@ const render = (
     if (links.length) {
       links.forEach(link => {
         if (link.length === 2) {
-          const firstVertic = link[0];
-          const secondVertic = link[1];
+          const firstPoint = link[0];
+          const secondPoint = link[1];
+          const [firstVertic] = vertics.filter(elem => elem.num === firstPoint);
+          const [secondVertic] = vertics.filter(
+            elem => elem.num === secondPoint
+          );
           ctx!.fillStyle = '#4fc3f7';
           ctx!.lineWidth = 2;
           ctx!.beginPath();
-          ctx!.moveTo(vertics[firstVertic].x, vertics[firstVertic].y);
-          ctx!.lineTo(vertics[secondVertic].x, vertics[secondVertic].y);
+          ctx!.moveTo(firstVertic.x, firstVertic.y);
+          ctx!.lineTo(secondVertic.x, secondVertic.y);
           ctx!.stroke();
         }
       });

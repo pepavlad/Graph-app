@@ -30,10 +30,7 @@ export const graphReducer = createReducer<GraphsState, any>(initialState, {
     action: AnyAction
   ) => ({
     links: action.payload.links,
-    vertics: [
-      ...state.vertics.slice(0, action.payload.index),
-      ...state.vertics.slice(action.payload.index + 1),
-    ],
+    vertics: state.vertics.filter(elem => elem.num !== action.payload.index)
   }),
   [GraphsActionTypes.UNSELECT_VERTICES]: (state: GraphsState) => ({
     ...state,

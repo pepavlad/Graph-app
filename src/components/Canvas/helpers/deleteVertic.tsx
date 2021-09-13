@@ -18,12 +18,14 @@ const deleteVertic = (
       elem =>
         (x - elem.x) * (x - elem.x) + (y - elem.y) * (y - elem.y) <= 16.5 * 16.5
     );
-    const newLinks = links.filter(
-      link => link.indexOf(verticToDelete.num) === -1
-    );
-    dispatch(
-      deleteVerticAction({ index: verticToDelete.num, links: newLinks })
-    );
+    if (verticToDelete) {
+      const newLinks = links.filter(
+        link => link.indexOf(verticToDelete.num) === -1
+      );
+      dispatch(
+        deleteVerticAction({ index: verticToDelete.num, links: newLinks })
+      );
+    }
   };
 };
 export default deleteVertic;
