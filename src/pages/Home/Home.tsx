@@ -1,9 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import M from 'materialize-css';
 import './Home.scss';
 import Canvas from '../../components/Canvas/Canvas';
 
 const Home: React.FC = () => {
   const [btnType, setBtnType] = useState('add');
+  useEffect(() => {
+    const dropdowns = document.querySelectorAll('.dropdown-trigger');
+    const options = {
+      inDuration: 300,
+      outDuration: 300,
+      coverTrigger: false,
+    };
+
+    M.Dropdown.init(dropdowns, options);
+  }, []);
+
   const handleClick = (type: string) => {
     return (event: React.MouseEvent) => {
       event.stopPropagation();
@@ -47,12 +59,21 @@ const Home: React.FC = () => {
           Удалить
         </a>
         <a
-          onClick={handleClick('algorithms')}
-          className='waves-effect cyan lighten-3 btn'
+          onClick={handleClick('algoritms')}
+          className='dropdown-trigger btn graph-btn'
+          href='#'
+          data-target='dropdown'
         >
-          <i className='material-icons'>settings</i>
-          Алгоритмы
+          Алгоритмы<i className='material-icons right'>settings</i>
         </a>
+        <ul id='dropdown' className='dropdown-content'>
+          <li>
+            <a href='#!'>Поиск в ширину</a>
+          </li>
+          <li>
+            <a href='#!'>Поиск в глубину</a>
+          </li>
+        </ul>
       </div>
       <Canvas btnType={btnType} />
     </div>
