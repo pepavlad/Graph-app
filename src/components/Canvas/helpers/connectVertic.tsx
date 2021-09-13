@@ -1,6 +1,6 @@
-import { Dispatch } from 'redux';
-import { IVertic } from '../../../interfaces/IVertic';
-import { connectVerticAction } from '../../../redux/actions/graphs';
+import { Dispatch } from "redux";
+import { connectVerticAction } from "../../../redux/actions/graphs";
+import { IVertic } from "../../../interfaces/IVertic";
 
 const connect = (vertics: IVertic[]) => {
   const [firstVert] = vertics.filter(elem => elem.isSelectedFirst);

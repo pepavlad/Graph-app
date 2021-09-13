@@ -10,10 +10,10 @@ export interface GraphsState {
 
 const initialState = {
   vertics: [],
-  links: [[]],
+  links: [],
 };
 
-export const graphReducer = createReducer<GraphsState>(initialState, {
+export const graphReducer = createReducer<GraphsState, any>(initialState, {
   [GraphsActionTypes.ADD_VERTIC]: (state: GraphsState, action: AnyAction) => ({
     ...state,
     vertics: [...state.vertics, action.payload],
@@ -25,17 +25,34 @@ export const graphReducer = createReducer<GraphsState>(initialState, {
     ...state,
     links: [...state.links, action.payload],
   }),
-  [GraphsActionTypes.UNSELECT_VERTICES]: (
+  [GraphsActionTypes.DELETE_VERTIC]: (
     state: GraphsState,
+    action: AnyAction
   ) => ({
+    links: action.payload.links,
+    vertics: [
+      ...state.vertics.slice(0, action.payload.index),
+      ...state.vertics.slice(action.payload.index + 1),
+    ],
+  }),
+  [GraphsActionTypes.UNSELECT_VERTICES]: (state: GraphsState) => ({
     ...state,
-    vertics: state.vertics.map((vertic: IVertic) => {return {...vertic, isSelectedFirst: false, isSelectedSecond: false}}),
+    vertics: state.vertics.map((vertic: IVertic) => {
+      return { ...vertic, isSelectedFirst: false, isSelectedSecond: false };
+    }),
   }),
   [GraphsActionTypes.SELECT_VERTIC]: (
     state: GraphsState,
     action: AnyAction
   ) => ({
     ...state,
-    vertics: action.payload
+    vertics: action.payload,
+  }),
+  [GraphsActionTypes.CHANGE_COORDS]: (
+    state: GraphsState,
+    action: AnyAction
+  ) => ({
+    ...state,
+    vertics: action.payload,
   }),
 });
