@@ -19,7 +19,7 @@ const Home: React.FC = () => {
   const handleClick = (type: string) => {
     return (event: React.MouseEvent) => {
       event.stopPropagation();
-      if (btnType !== type) {
+      if (!btnType.includes(type)) {
         document.querySelectorAll('.graph-btn').forEach(e => {
           e.classList.remove('active');
         });
@@ -59,7 +59,7 @@ const Home: React.FC = () => {
           Удалить
         </a>
         <a
-          onClick={handleClick('algoritms')}
+          onClick={handleClick('bfs dfs')}
           className='dropdown-trigger btn graph-btn'
           href='#'
           data-target='dropdown'
@@ -68,10 +68,14 @@ const Home: React.FC = () => {
         </a>
         <ul id='dropdown' className='dropdown-content'>
           <li>
-            <a href='#!'>Поиск в ширину</a>
+            <a onClick={handleClick('bfs')} href='#!'>
+              Поиск в ширину
+            </a>
           </li>
           <li>
-            <a href='#!'>Поиск в глубину</a>
+            <a onClick={handleClick('dfs')} href='#!'>
+              Поиск в глубину
+            </a>
           </li>
         </ul>
       </div>
