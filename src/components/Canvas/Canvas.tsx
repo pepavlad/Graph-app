@@ -13,6 +13,8 @@ import connectVertic from './helpers/connectVertic';
 import { selectToMoveVertic, mouseMoveEvent } from './helpers/moveVertic';
 import { Coords } from '../../interfaces/coords';
 import deleteVertic from './helpers/deleteVertic';
+import dfs from './helpers/algorithmDfs';
+import bfs from './helpers/algorithmBfs';
 
 interface CanvasProps {
   btnType: string;
@@ -21,6 +23,7 @@ interface CanvasProps {
 const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
   const [numOfVertic, setNumOfVertic] = useState(0);
   const [startPoint, setStartPoint] = useState<Coords>();
+  const [resultOfAlgorithm, setResultOfAlgorithm] = useState('');
   const dispatch = useDispatch();
   const links = useSelector(selectLinks);
   const vertics = useSelector(selectVertics);
@@ -56,6 +59,22 @@ const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
         case 'delete':
           dispatch(deleteVertic(event, ctx, vertics, links));
           break;
+        case 'dfs':
+          const obj = {};
+          const visited: string[] = [];
+          dfs(event, links, obj, ctx, vertics, elem => {
+            visited.push(elem);
+          });
+          setResultOfAlgorithm(`Порядок обхода: ${visited.join(' ')}`);
+          break;
+        case 'bfs':
+          const nodes = {};
+          const visitedNodes: number[] = [];
+          bfs(event, links, nodes, ctx, vertics, elem => {
+            visitedNodes.push(elem);
+          });
+          setResultOfAlgorithm(`Порядок обхода: ${visitedNodes.join(' ')}`);
+          break;
         default:
           break;
       }
@@ -63,6 +82,7 @@ const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
   };
   useEffect(() => {
     dispatch(unselectVerticAction());
+    setResultOfAlgorithm('');
   }, [btnType]);
 
   useEffect(() => {
@@ -78,15 +98,18 @@ const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
   }, [vertics, links]);
 
   return (
-    <canvas
-      onMouseDown={mouseDown}
-      onMouseUp={mouseUp}
-      onMouseMove={mouseMove}
-      id='canvas'
-      ref={ref}
-      width='1000'
-      height='600'
-    />
+    <div>
+      <canvas
+        onMouseDown={mouseDown}
+        onMouseUp={mouseUp}
+        onMouseMove={mouseMove}
+        id='canvas'
+        ref={ref}
+        width='1100'
+        height='570'
+      />
+      {resultOfAlgorithm && <div className='result'>{resultOfAlgorithm}</div>}
+    </div>
   );
 };
 
