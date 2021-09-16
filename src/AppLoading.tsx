@@ -1,26 +1,23 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router';
-import firebase from 'firebase/app';
+import { useHistory } from 'react-router-dom';
+import firebase from 'firebase';
+import { authState } from './interfaces/auth';
 
 interface AppLoadingProps {
-  setIsLogin: any;
+  authState: authState;
 }
-const AppLoading: React.FC<AppLoadingProps> = ({ setIsLogin }) => {
+const AppLoading: React.FC<AppLoadingProps> = ({ authState }) => {
   const history = useHistory();
-
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        if (user.emailVerified) {
-          setIsLogin(true);
+        if (authState.authenticated) {
           history.push('/home');
-        } else {
-          setIsLogin(false);
+        } else if (authState.needConfirm) {
           history.push('/confirm');
         }
       } else {
-        setIsLogin(false);
-        history.push('/home');
+        history.push('/login');
       }
     });
   }, [history]);

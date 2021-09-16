@@ -75,6 +75,8 @@ const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
           });
           setResultOfAlgorithm(`Порядок обхода: ${visitedNodes.join(' ')}`);
           break;
+        case 'save':
+          break;
         default:
           break;
       }

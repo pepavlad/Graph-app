@@ -2,25 +2,35 @@ import React from 'react';
 import { RouteProps, Route, Redirect } from 'react-router';
 
 interface ProtectedRouteProps extends RouteProps {
-  component: any;
-  isLogin: boolean;
+  component: React.ComponentType<RouteProps>;
+  authState: {
+    authenticated: boolean;
+    needConfirm: boolean;
+  };
 }
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   component: Component,
-  isLogin,
+  authState,
   ...rest
 }) => (
   <Route
     {...rest}
     render={props => {
-      if (isLogin) {
+      if (authState.authenticated) {
         return <Component {...props} />;
       }
-      return (
+      if (authState.needConfirm) {
         <Redirect
-          to={{ pathname: '/login', state: { from: props.location } }}
-        />
-      );
+          to={{ pathname: '/confirm', state: { from: props.location } }}
+        />;
+      }
+      if (!authState.authenticated) {
+        return (
+          <Redirect
+            to={{ pathname: '/login', state: { from: props.location } }}
+          />
+        );
+      }
     }}
   />
 );

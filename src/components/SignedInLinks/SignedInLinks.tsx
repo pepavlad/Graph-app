@@ -1,7 +1,6 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
 import { signOut } from '../../redux/thunk/auth';
 
 const SignedInLinks: React.FC = () => {
@@ -22,7 +21,7 @@ const SignedInLinks: React.FC = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to='/'>
+        <NavLink to='/profile'>
           <i className='material-icons'>account_circle</i>
         </NavLink>
       </li>

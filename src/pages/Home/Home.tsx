@@ -78,6 +78,10 @@ const Home: React.FC = () => {
             </a>
           </li>
         </ul>
+        <a className='waves-effect btn graph-btn save'>
+          <i className='material-icons'>save</i>
+          Сохранить
+        </a>
       </div>
       <Canvas btnType={btnType} />
     </div>

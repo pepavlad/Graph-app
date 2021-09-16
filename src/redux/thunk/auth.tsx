@@ -27,22 +27,22 @@ export const register = (
         dispatch(successRegisterAction());
         history.push('/confirm');
       })
-      .catch(err => {
-        dispatch(errorRegisterAction(err.message));
+      .catch(error => {
+        dispatch(errorRegisterAction(error.message));
       });
   };
 };
 
 export const signIn = (email: string, password: string, history: any) => {
-  return (dispatch: Dispatch): void => {
+  return async (dispatch: Dispatch) => {
     dispatch(signInAction());
     AuthService.signIn(email, password)
       .then(() => {
         dispatch(successSignInAction());
         history.push('/');
       })
-      .catch(err => {
-        dispatch(errorSignInAction(err.message));
+      .catch(error => {
+        dispatch(errorSignInAction(error.message));
       });
   };
 };
@@ -54,8 +54,8 @@ export const signOut = (history: any) => {
         dispatch(successSignOutAction());
         history.push('/login');
       })
-      .catch(err => {
-        dispatch(errorSignOutAction(err.message));
+      .catch(error => {
+        dispatch(errorSignOutAction(error.message));
       });
   };
 };

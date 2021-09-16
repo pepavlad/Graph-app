@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import firebase from 'firebase/app';
+import firebase from 'firebase';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './redux/reducers/index';
 import App from './App';
@@ -21,6 +21,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk))

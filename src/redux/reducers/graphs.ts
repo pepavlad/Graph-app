@@ -13,7 +13,7 @@ const initialState = {
   links: [],
 };
 
-export const graphReducer = createReducer<GraphsState, any>(initialState, {
+export const graphReducer = createReducer<GraphsState>(initialState, {
   [GraphsActionTypes.ADD_VERTIC]: (state: GraphsState, action: AnyAction) => ({
     ...state,
     vertics: [...state.vertics, action.payload],

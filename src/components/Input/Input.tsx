@@ -11,6 +11,8 @@ const Input: FC<InputProps> = ({
   label,
   min,
   minLength,
+  value,
+  readOnly,
 }) => (
   <div className='field'>
     <div className='control'>
@@ -25,6 +27,8 @@ const Input: FC<InputProps> = ({
         autoComplete='off'
         min={min}
         minLength={minLength}
+        value={value}
+        readOnly={readOnly}
       />
     </div>
   </div>
