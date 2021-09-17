@@ -1,21 +1,31 @@
 import firebase from 'firebase';
-import { IVertic } from '../interfaces/IVertic';
 
-export const saveGraph = (
-  vertics: IVertic[],
-  links: number[][],
-  graphName: string
-) => {
+export const saveGraph = (pngURL: string, graphName: string) => {
   const user = firebase.auth().currentUser;
   if (user) {
     return firebase
-      .database()
-      .ref()
-      .child('graphs')
+      .storage()
+      .ref('graps')
       .child(user.uid)
       .child(graphName)
-      .set({ vertics, links });
+      .putString(pngURL, 'data_url');
   }
 };
-
+export const downloadGraph = (graphName: string) => {
+  const user = firebase.auth().currentUser;
+  if (user) {
+    return firebase
+      .storage()
+      .ref('graps')
+      .child(user.uid)
+      .child(graphName)
+      .getDownloadURL();
+  }
+};
+export const getAllGraphs = () => {
+  const user = firebase.auth().currentUser;
+  if (user) {
+    return firebase.storage().ref('graps').child(user.uid).listAll();
+  }
+};
 export const deleteGraph = () => {};

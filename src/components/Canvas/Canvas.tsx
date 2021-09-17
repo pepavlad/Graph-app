@@ -5,6 +5,7 @@ import render from './helpers/render';
 import {
   addVerticAction,
   unselectVerticAction,
+  createNewProjectAction,
 } from '../../redux/actions/graphs';
 import { selectLinks, selectVertics } from '../../redux/selectors/graph';
 import draw from './helpers/addVertic';
@@ -18,10 +19,10 @@ import bfs from './helpers/algorithmBfs';
 
 interface CanvasProps {
   btnType: string;
+  imgURL: string;
 }
 
-const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
-  const [numOfVertic, setNumOfVertic] = useState(0);
+const Canvas: React.FC<CanvasProps> = ({ btnType, imgURL }) => {
   const [startPoint, setStartPoint] = useState<Coords>();
   const [resultOfAlgorithm, setResultOfAlgorithm] = useState('');
   const dispatch = useDispatch();
@@ -47,8 +48,7 @@ const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
       const ctx = canvasCtxRef.current;
       switch (btnType) {
         case 'add':
-          dispatch(addVerticAction(draw(event, ref, ctx, numOfVertic)!));
-          setNumOfVertic(numOfVertic + 1);
+          dispatch(addVerticAction(draw(event, ref, ctx, vertics)!));
           break;
         case 'connect':
           dispatch(selectVertic(event, ctx, vertics));
@@ -75,8 +75,6 @@ const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
           });
           setResultOfAlgorithm(`Порядок обхода: ${visitedNodes.join(' ')}`);
           break;
-        case 'save':
-          break;
         default:
           break;
       }
@@ -86,7 +84,11 @@ const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
     dispatch(unselectVerticAction());
     setResultOfAlgorithm('');
   }, [btnType]);
-
+  useEffect(() => {
+    return () => {
+      dispatch(createNewProjectAction());
+    };
+  }, [dispatch]);
   useEffect(() => {
     if (
       vertics.filter(
@@ -98,7 +100,6 @@ const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
     }
     render(vertics, canvasCtxRef, ref, links);
   }, [vertics, links]);
-
   return (
     <div>
       <canvas

@@ -4,11 +4,15 @@ import { IVertic } from '../../interfaces/IVertic';
 import { GraphsActionTypes } from '../actions/graphs';
 
 export interface GraphsState {
+  graphNames?: string[]
+  imgURL?: string
   vertics: IVertic[];
   links: number[][];
 }
 
 const initialState = {
+  graphNames: [],
+  imgURL: '',
   vertics: [],
   links: [],
 };
@@ -16,7 +20,11 @@ const initialState = {
 export const graphReducer = createReducer<GraphsState>(initialState, {
   [GraphsActionTypes.ADD_VERTIC]: (state: GraphsState, action: AnyAction) => ({
     ...state,
-    vertics: [...state.vertics, action.payload],
+    vertics: [...state.vertics, action.payload]
+  }),
+  [GraphsActionTypes.CREATE_NEW_PROJECT]: () => ({
+    vertics: [],
+    links: []
   }),
   [GraphsActionTypes.CONNECT_VERTICES]: (
     state: GraphsState,
@@ -51,5 +59,19 @@ export const graphReducer = createReducer<GraphsState>(initialState, {
   ) => ({
     ...state,
     vertics: action.payload,
+  }),
+  [GraphsActionTypes.DOWNLOAD_GRAPH]: (
+    state: GraphsState,
+    action: AnyAction
+  ) => ({
+    ...state,
+    imgURL: action.payload,
+  }),
+  [GraphsActionTypes.GET_ALL_GRAPHS]: (
+    state: GraphsState,
+    action: AnyAction
+  ) => ({
+    ...state,
+    graphNames: action.payload,
   }),
 });

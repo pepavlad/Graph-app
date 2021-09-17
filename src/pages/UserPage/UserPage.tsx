@@ -1,13 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import firebase from 'firebase';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { User } from '../../interfaces/User';
 import './UserPage.scss';
+import { downloadGraph, getAllGraphs } from '../../redux/thunk/graphs';
+import { selectGraphs } from '../../redux/selectors/graph';
 import Input from '../../components/Input/Input';
-import SavedGraphItem from '../../components/SavedGraphItem/SavedGraphItem';
 
 const UserPage: React.FC = () => {
   const [userData, setUserData] = useState<User>();
+  const [graphNames, setGraphNames] = useState<string[]>();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const graphs: string[] = useSelector(selectGraphs);
+  const loadGraph = (event: React.MouseEvent) => {
+    dispatch(downloadGraph((event.target as HTMLAnchorElement).id));
+    history.push('/home');
+  };
   useEffect(() => {
+    dispatch(getAllGraphs());
     const user = firebase.auth().currentUser;
     if (user) {
       firebase
@@ -20,7 +32,10 @@ const UserPage: React.FC = () => {
         });
     }
   }, []);
-  if (!userData) {
+  useEffect(() => {
+    setGraphNames(graphs);
+  }, [graphs]);
+  if (!userData || !graphs) {
     return (
       <div className='progress'>
         <div className='indeterminate'> </div>
@@ -76,9 +91,21 @@ const UserPage: React.FC = () => {
       </div>
       <div className='graphs'>
         <ul>
-          <SavedGraphItem />
-          <SavedGraphItem />
-          <SavedGraphItem />
+          {graphs.map(graphname => (
+            <li className='graph_item' key={graphname}>
+              {graphname}
+              <div className='icons'>
+                <i
+                  className='material-icons'
+                  onClick={loadGraph}
+                  id={graphname}
+                >
+                  open_in_browser
+                </i>
+                <i className='material-icons'>delete</i>
+              </div>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
