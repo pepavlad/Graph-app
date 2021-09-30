@@ -1,31 +1,50 @@
 import firebase from 'firebase';
+import { IVertic } from '../interfaces/IVertic';
 
-export const saveGraph = (pngURL: string, graphName: string) => {
+export const saveGraph = (
+  vertics: IVertic[],
+  links: number[][],
+  graphName: string
+) => {
   const user = firebase.auth().currentUser;
   if (user) {
     return firebase
-      .storage()
-      .ref('graps')
+      .database()
+      .ref()
+      .child('graphs')
       .child(user.uid)
       .child(graphName)
-      .putString(pngURL, 'data_url');
+      .set({ vertics, links });
   }
 };
 export const downloadGraph = (graphName: string) => {
   const user = firebase.auth().currentUser;
   if (user) {
     return firebase
-      .storage()
-      .ref('graps')
+      .database()
+      .ref()
+      .child('graphs')
       .child(user.uid)
-      .child(graphName)
-      .getDownloadURL();
+      .child(graphName);
   }
 };
+
 export const getAllGraphs = () => {
   const user = firebase.auth().currentUser;
   if (user) {
-    return firebase.storage().ref('graps').child(user.uid).listAll();
+    return firebase.database().ref().child('graphs').child(user.uid);
   }
 };
-export const deleteGraph = () => {};
+
+export const deleteGraph = (graphName: string) => {
+  const user = firebase.auth().currentUser;
+  if (user) {
+    return firebase
+      .database()
+      .ref()
+      .child('graphs')
+      .child(user.uid)
+      .child(graphName)
+      .remove();
+  }
+};

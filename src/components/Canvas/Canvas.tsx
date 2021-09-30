@@ -19,10 +19,9 @@ import bfs from './helpers/algorithmBfs';
 
 interface CanvasProps {
   btnType: string;
-  imgURL: string;
 }
 
-const Canvas: React.FC<CanvasProps> = ({ btnType, imgURL }) => {
+const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
   const [startPoint, setStartPoint] = useState<Coords>();
   const [resultOfAlgorithm, setResultOfAlgorithm] = useState('');
   const dispatch = useDispatch();
@@ -80,15 +79,18 @@ const Canvas: React.FC<CanvasProps> = ({ btnType, imgURL }) => {
       }
     }
   };
+
   useEffect(() => {
     dispatch(unselectVerticAction());
     setResultOfAlgorithm('');
   }, [btnType]);
+
   useEffect(() => {
     return () => {
       dispatch(createNewProjectAction());
     };
   }, [dispatch]);
+
   useEffect(() => {
     if (
       vertics.filter(
@@ -100,6 +102,7 @@ const Canvas: React.FC<CanvasProps> = ({ btnType, imgURL }) => {
     }
     render(vertics, canvasCtxRef, ref, links);
   }, [vertics, links]);
+
   return (
     <div>
       <canvas

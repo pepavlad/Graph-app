@@ -8,7 +8,8 @@ const render = (
   ref: React.MutableRefObject<HTMLCanvasElement | null>,
   links: number[][]
 ) => {
-  if (ref.current && canvasCtxRef.current) {
+  if (ref.current) {
+    canvasCtxRef.current = ref.current.getContext('2d');
     const ctx = canvasCtxRef.current;
     ctx!.clearRect(0, 0, ref.current.width, ref.current.height);
     if (links.length) {

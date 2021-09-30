@@ -11,16 +11,21 @@ enum GraphsActionTypes {
   DELETE_VERTIC = '[Graphs] DELETE_VERTIC',
   CREATE_NEW_PROJECT = '[Graphs] CREATE_NEW_PROJECT',
   DOWNLOAD_GRAPH = '[Graphs] DOWNLOAD_GRAPH',
-  GET_ALL_GRAPHS = '[Graphs] GET_ALL_GRAPHS'
+  GET_ALL_GRAPHS = '[Graphs] GET_ALL_GRAPHS',
+  SET_LOADING = '[Graphs] SET_LOADING',
 }
 
 const addVerticAction = createAction(
   GraphsActionTypes.ADD_VERTIC,
   (payload: IVertic) => payload
 );
+const setLoadingAction = createAction(
+  GraphsActionTypes.SET_LOADING,
+  (payload: boolean) => payload
+);
 const downloadGraphAction = createAction(
   GraphsActionTypes.DOWNLOAD_GRAPH,
-  (payload: string) => payload
+  (payload: { vertics: IVertic[]; links: number[][] }) => payload
 );
 const getAllGraphsAction = createAction(
   GraphsActionTypes.GET_ALL_GRAPHS,
@@ -57,5 +62,6 @@ export {
   connectVerticAction,
   unselectVerticAction,
   changeCoordsAction,
+  setLoadingAction,
   deleteVerticAction,
 };

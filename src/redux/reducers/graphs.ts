@@ -4,15 +4,15 @@ import { IVertic } from '../../interfaces/IVertic';
 import { GraphsActionTypes } from '../actions/graphs';
 
 export interface GraphsState {
-  graphNames?: string[]
-  imgURL?: string
+  graphNames?: string[];
+  isLoading?: boolean;
   vertics: IVertic[];
   links: number[][];
 }
 
 const initialState = {
   graphNames: [],
-  imgURL: '',
+  isLoading: false,
   vertics: [],
   links: [],
 };
@@ -20,11 +20,16 @@ const initialState = {
 export const graphReducer = createReducer<GraphsState>(initialState, {
   [GraphsActionTypes.ADD_VERTIC]: (state: GraphsState, action: AnyAction) => ({
     ...state,
-    vertics: [...state.vertics, action.payload]
+    vertics: [...state.vertics, action.payload],
   }),
-  [GraphsActionTypes.CREATE_NEW_PROJECT]: () => ({
+  [GraphsActionTypes.CREATE_NEW_PROJECT]: (state: GraphsState) => ({
+    ...state,
     vertics: [],
-    links: []
+    links: [],
+  }),
+  [GraphsActionTypes.SET_LOADING]: (state: GraphsState, action: AnyAction) => ({
+    ...state,
+    isLoading: action.payload,
   }),
   [GraphsActionTypes.CONNECT_VERTICES]: (
     state: GraphsState,
@@ -37,8 +42,9 @@ export const graphReducer = createReducer<GraphsState>(initialState, {
     state: GraphsState,
     action: AnyAction
   ) => ({
+    ...state,
     links: action.payload.links,
-    vertics: state.vertics.filter(elem => elem.num !== action.payload.index)
+    vertics: state.vertics.filter(elem => elem.num !== action.payload.index),
   }),
   [GraphsActionTypes.UNSELECT_VERTICES]: (state: GraphsState) => ({
     ...state,
@@ -65,7 +71,8 @@ export const graphReducer = createReducer<GraphsState>(initialState, {
     action: AnyAction
   ) => ({
     ...state,
-    imgURL: action.payload,
+    vertics: action.payload.vertics,
+    links: action.payload.links,
   }),
   [GraphsActionTypes.GET_ALL_GRAPHS]: (
     state: GraphsState,

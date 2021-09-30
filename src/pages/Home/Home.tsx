@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import M from 'materialize-css';
 import './Home.scss';
 import Canvas from '../../components/Canvas/Canvas';
-import { selectImgURL } from '../../redux/selectors/graph';
 import SaveGraphModal from '../../components/SaveGraphModal/SaveGraphModal';
+import selectVertic from '../../components/Canvas/helpers/selectVertic';
 
 const Home: React.FC = () => {
   const [btnType, setBtnType] = useState('add');
-  const imgURL = useSelector(selectImgURL);
   useEffect(() => {
     const dropdowns = document.querySelectorAll('.dropdown-trigger');
     const options = {
@@ -91,7 +89,7 @@ const Home: React.FC = () => {
             Сохранить
           </a>
         </div>
-        <Canvas btnType={btnType} imgURL={imgURL} />
+        <Canvas btnType={btnType} />
       </div>
     </div>
   );

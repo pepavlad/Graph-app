@@ -10,15 +10,14 @@ export interface UserState {
 
 const initialState = {
   userData: {
-	  age: '',
-	  firstName: '',
-	  lastName: ''
+    age: '',
+    firstName: '',
+    lastName: '',
   },
 };
 
 export const userReducer = createReducer<UserState>(initialState, {
   [UserActionTypes.SET_DATA]: (state: UserState, action: AnyAction) => ({
-    ...state,
-    userData: action.payload
+    userData: action.payload,
   }),
 });

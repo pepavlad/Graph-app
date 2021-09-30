@@ -1,12 +1,15 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './SaveGraphModal.scss';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
+import { selectVertics, selectLinks } from '../../redux/selectors/graph';
 import { saveGraph } from '../../redux/thunk/graphs';
 
 const SaveGraphModal: React.FC = () => {
   const dispatch = useDispatch();
+  const vertics = useSelector(selectVertics);
+  const links = useSelector(selectLinks);
   const closeModal = () => {
     document.querySelector('.modal_popup')!.classList.remove('showModal');
   };
@@ -17,7 +20,7 @@ const SaveGraphModal: React.FC = () => {
     const { graphname } = event.target as HTMLInputElement & {
       graphname: { value: string };
     };
-    dispatch(saveGraph(pngURL, graphname.value));
+    dispatch(saveGraph(vertics, links, graphname.value));
   };
   return (
     <div className='modal_popup'>

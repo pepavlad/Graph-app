@@ -1,36 +1,46 @@
 import firebase from 'firebase';
 import { Dispatch } from 'redux';
 import * as GraphService from '../../services/graphs';
-import { downloadGraphAction, getAllGraphsAction } from '../actions/graphs';
+import {
+  downloadGraphAction,
+  getAllGraphsAction,
+  setLoadingAction,
+} from '../actions/graphs';
+import { IVertic } from '../../interfaces/IVertic';
 
-export const saveGraph = (pngURL: string, graphname: string) => {
+export const saveGraph = (
+  vertics: IVertic[],
+  links: number[][],
+  graphName: string
+) => {
   return () => {
-    GraphService.saveGraph(pngURL, graphname)!
-      .then(() => {
-        document.querySelector('.modal_popup')!.classList.remove('showModal');
-      })
-      .catch(error => window.alert(error.message));
+    GraphService.saveGraph(vertics, links, graphName)!.then(() => {
+      document.querySelector('.modal_popup')!.classList.remove('showModal');
+    });
   };
 };
 
 export const downloadGraph = (graphname: string) => {
   return (dispatch: Dispatch) => {
-    GraphService.downloadGraph(graphname)!
-      .then(res => {
-        dispatch(downloadGraphAction(res));
-      })
-      .catch(error => window.alert(error.message));
+    GraphService.downloadGraph(graphname)!.on('value', snapshot => {
+      const data = snapshot.val();
+      dispatch(
+        downloadGraphAction({ vertics: data.vertics, links: data.links })
+      );
+    });
   };
+};
+
+export const deleteGraph = (graphname: string) => {
+  GraphService.deleteGraph(graphname);
 };
 
 export const getAllGraphs = () => {
   return (dispatch: Dispatch) => {
-    GraphService.getAllGraphs()!.then(result => {
-      const graphNames: string[] = [];
-      result.items.forEach(fileRef => {
-        graphNames.push(fileRef.name);
-      });
-      dispatch(getAllGraphsAction(graphNames));
+    dispatch(setLoadingAction(true));
+    GraphService.getAllGraphs()!.on('value', result => {
+      dispatch(getAllGraphsAction(Object.keys(result.val())));
+      dispatch(setLoadingAction(false));
     });
   };
 };

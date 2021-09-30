@@ -9,14 +9,14 @@ import rootReducer from './redux/reducers/index';
 import App from './App';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAUDcea0Mz5PCf9u6R6ckEzXm7HEfoFa_Q',
-  authDomain: 'graph-app-9a5a3.firebaseapp.com',
+  apiKey: 'AIzaSyCmSfHZXHODsRhM8Hy7VwttWGZ4zzfaZMI',
+  authDomain: 'graph-fd4a0.firebaseapp.com',
   databaseURL:
-    'https://graph-app-9a5a3-default-rtdb.europe-west1.firebasedatabase.app',
-  projectId: 'graph-app-9a5a3',
-  storageBucket: 'graph-app-9a5a3.appspot.com',
-  messagingSenderId: '175472711113',
-  appId: '1:175472711113:web:641cd0cb99f792b646c418',
+    'https://graph-fd4a0-default-rtdb.europe-west1.firebasedatabase.app',
+  projectId: 'graph-fd4a0',
+  storageBucket: 'graph-fd4a0.appspot.com',
+  messagingSenderId: '694162396498',
+  appId: '1:694162396498:web:c233f72640520cd4b2968b',
 };
 
 // Initialize Firebase
