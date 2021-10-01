@@ -64,7 +64,9 @@ const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
           dfs(event, links, obj, ctx, vertics, elem => {
             visited.push(elem);
           });
-          setResultOfAlgorithm(`Порядок обхода: ${visited.join(' ')}`);
+          if (visited.length) {
+            setResultOfAlgorithm(`Порядок обхода: ${visited.join(' ')}`);
+          }
           break;
         case 'bfs':
           const nodes = {};
@@ -72,7 +74,9 @@ const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
           bfs(event, links, nodes, ctx, vertics, elem => {
             visitedNodes.push(elem);
           });
-          setResultOfAlgorithm(`Порядок обхода: ${visitedNodes.join(' ')}`);
+          if (visitedNodes.length) {
+            setResultOfAlgorithm(`Порядок обхода: ${visitedNodes.join(' ')}`);
+          }
           break;
         default:
           break;
@@ -114,7 +118,9 @@ const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
         width='1100'
         height='570'
       />
-      {resultOfAlgorithm && <div className='result'>{resultOfAlgorithm}</div>}
+      {resultOfAlgorithm.length && (
+        <div className='result'>{resultOfAlgorithm}</div>
+      )}
     </div>
   );
 };

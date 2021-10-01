@@ -5,6 +5,7 @@ import {
   downloadGraphAction,
   getAllGraphsAction,
   setLoadingAction,
+  deleteGraphAction,
 } from '../actions/graphs';
 import { IVertic } from '../../interfaces/IVertic';
 
@@ -32,14 +33,19 @@ export const downloadGraph = (graphname: string) => {
 };
 
 export const deleteGraph = (graphname: string) => {
-  GraphService.deleteGraph(graphname);
+  return (dispatch: Dispatch) => {
+    GraphService.deleteGraph(graphname);
+    dispatch(deleteGraphAction(graphname));
+  };
 };
 
 export const getAllGraphs = () => {
   return (dispatch: Dispatch) => {
     dispatch(setLoadingAction(true));
     GraphService.getAllGraphs()!.on('value', result => {
-      dispatch(getAllGraphsAction(Object.keys(result.val())));
+      if (result.val()) {
+        dispatch(getAllGraphsAction(Object.keys(result.val())));
+      }
       dispatch(setLoadingAction(false));
     });
   };

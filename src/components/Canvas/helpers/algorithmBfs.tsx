@@ -26,22 +26,24 @@ const bfs = (
     elem =>
       (x - elem.x) * (x - elem.x) + (y - elem.y) * (y - elem.y) <= 16.5 * 16.5
   );
-  const visited: boolean[] = [];
-  const queue: number[] = [startVertic.num];
-  visited[startVertic.num] = true;
-  fn(startVertic.num);
-  while (queue.length > 0) {
-    const currentVerticId: number | undefined = queue.shift();
-    if (currentVerticId) {
-      const currentVertic = nodes[currentVerticId];
-      currentVertic.forEach((elem, index) => {
-        const target = currentVertic[index];
-        if (!visited[target]) {
-          visited[target] = true;
-          queue.push(target);
-          fn(target);
-        }
-      });
+  if (startVertic) {
+    const visited: boolean[] = [];
+    const queue: number[] = [startVertic.num];
+    visited[startVertic.num] = true;
+    fn(startVertic.num);
+    while (queue.length > 0) {
+      const currentVerticId: number | undefined = queue.shift();
+      if (currentVerticId) {
+        const currentVertic = nodes[currentVerticId];
+        currentVertic.forEach((elem, index) => {
+          const target = currentVertic[index];
+          if (!visited[target]) {
+            visited[target] = true;
+            queue.push(target);
+            fn(target);
+          }
+        });
+      }
     }
   }
 };

@@ -12,7 +12,7 @@ const render = (
     canvasCtxRef.current = ref.current.getContext('2d');
     const ctx = canvasCtxRef.current;
     ctx!.clearRect(0, 0, ref.current.width, ref.current.height);
-    if (links.length) {
+    if (links) {
       links.forEach(link => {
         if (link.length === 2) {
           const firstPoint = link[0];

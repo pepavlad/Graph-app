@@ -4,8 +4,8 @@ import { IVertic } from '../../interfaces/IVertic';
 import { GraphsActionTypes } from '../actions/graphs';
 
 export interface GraphsState {
-  graphNames?: string[];
-  isLoading?: boolean;
+  graphNames: string[];
+  isLoading: boolean;
   vertics: IVertic[];
   links: number[][];
 }
@@ -45,6 +45,13 @@ export const graphReducer = createReducer<GraphsState>(initialState, {
     ...state,
     links: action.payload.links,
     vertics: state.vertics.filter(elem => elem.num !== action.payload.index),
+  }),
+  [GraphsActionTypes.DELETE_GRAPH]: (
+    state: GraphsState,
+    action: AnyAction
+  ) => ({
+    ...state,
+    graphNames: state.graphNames.filter(elem => elem !== action.payload),
   }),
   [GraphsActionTypes.UNSELECT_VERTICES]: (state: GraphsState) => ({
     ...state,

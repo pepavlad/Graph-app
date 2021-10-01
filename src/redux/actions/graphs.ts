@@ -13,6 +13,7 @@ enum GraphsActionTypes {
   DOWNLOAD_GRAPH = '[Graphs] DOWNLOAD_GRAPH',
   GET_ALL_GRAPHS = '[Graphs] GET_ALL_GRAPHS',
   SET_LOADING = '[Graphs] SET_LOADING',
+  DELETE_GRAPH = '[Graphs] DELETE_GRAPH',
 }
 
 const addVerticAction = createAction(
@@ -30,6 +31,10 @@ const downloadGraphAction = createAction(
 const getAllGraphsAction = createAction(
   GraphsActionTypes.GET_ALL_GRAPHS,
   (payload: string[]) => payload
+);
+const deleteGraphAction = createAction(
+  GraphsActionTypes.DELETE_GRAPH,
+  (payload: string) => payload
 );
 
 const createNewProjectAction = createAction(
@@ -54,6 +59,7 @@ const selectVerticAction = createAction(
 const unselectVerticAction = createAction(GraphsActionTypes.UNSELECT_VERTICES);
 export {
   GraphsActionTypes,
+  deleteGraphAction,
   addVerticAction,
   downloadGraphAction,
   createNewProjectAction,
