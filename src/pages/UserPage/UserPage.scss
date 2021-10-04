@@ -23,6 +23,32 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    form {
+      margin: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .valid {
+        border-bottom: 1px solid #26c6da;
+        box-shadow: 0 1px 0 0 #26c6da;
+      }
+      span {
+        margin: 0 auto;
+      }
+      input {
+        display: flex;
+        align-items: center;
+      }
+      .file {
+        margin-left: 0;
+      }
+      .upload {
+        width: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
     .username {
       font-size: 30px;
       width: 270px;
@@ -45,6 +71,7 @@
   }
   .userinfo {
     padding-right: 50px;
+    margin-top: 20px;
     width: 50%;
     form {
       margin: 0;

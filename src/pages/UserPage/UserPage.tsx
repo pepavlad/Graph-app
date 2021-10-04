@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getData, updateData } from '../../redux/thunk/user';
+import {
+  getData,
+  updateData,
+  updateUserPhoto,
+  getUserPhoto,
+} from '../../redux/thunk/user';
 import { User } from '../../interfaces/User';
 import './UserPage.scss';
 import {
@@ -10,11 +15,15 @@ import {
   deleteGraph,
 } from '../../redux/thunk/graphs';
 import { selectGraphs, selectIsLoading } from '../../redux/selectors/graph';
-import selectUser from '../../redux/selectors/user';
+import { selectUser, selectUserPhoto } from '../../redux/selectors/user';
 
 const UserPage: React.FC = () => {
   const [isReadonly, setIsReadonly] = useState<boolean>(true);
   const userData = useSelector(selectUser);
+  const userPhoto = useSelector(selectUserPhoto);
+  const [photoURL, setPhotoURL] = useState<string>(
+    'https://www.vippng.com/png/detail/412-4125354_person-circle-comments-profile-icon-png-white-transparent.png'
+  );
   const [data, setData] = useState<User>({
     firstName: '',
     lastName: '',
@@ -50,9 +59,17 @@ const UserPage: React.FC = () => {
   const toggleReadonly = () => {
     setIsReadonly(prevState => !prevState);
   };
+  const uploadPhoto = (event: React.FormEvent) => {
+    const { file } = event.target as HTMLInputElement & {
+      file: { files: any };
+    };
+    dispatch(updateUserPhoto(file.files[0]));
+    dispatch(getUserPhoto());
+  };
   useEffect(() => {
     dispatch(getAllGraphs());
     dispatch(getData());
+    dispatch(getUserPhoto());
   }, []);
 
   useEffect(() => {
@@ -62,6 +79,10 @@ const UserPage: React.FC = () => {
       age: userData.age,
     });
   }, [userData]);
+
+  useEffect(() => {
+    setPhotoURL(userPhoto);
+  }, [userPhoto]);
 
   if (!userData.firstName.length || isLoading) {
     return (
@@ -73,12 +94,22 @@ const UserPage: React.FC = () => {
   return (
     <div className='userpage'>
       <div className='title'>
-        <img
-          src='https://www.vippng.com/png/detail/412-4125354_person-circle-comments-profile-icon-png-white-transparent.png'
-          alt=''
-        />
+        <img src={userPhoto} alt='' />
         <p className='username'>Hello, {userData.firstName}</p>
-        <a className='waves-effect waves-light btn'>Change avatar</a>
+        <form action='#' onSubmit={uploadPhoto}>
+          <div className='file-field input-field'>
+            <div className='btn file'>
+              <span>Choose file</span>
+              <input type='file' name='file' />
+            </div>
+            <div className='file-path-wrapper'>
+              <input className='file-path validate' type='text' />
+            </div>
+          </div>
+          <button className='waves-effect waves-light btn upload'>
+            Upload
+          </button>
+        </form>
       </div>
       <div className='graphs_title'>
         Your graphs

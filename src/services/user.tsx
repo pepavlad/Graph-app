@@ -8,6 +8,18 @@ export const getUserData = () => {
     return firebase.database().ref().child('users').child(user.uid);
   }
 };
+export const getPhotoURL = () => {
+  const user = firebase.auth().currentUser;
+  if (user) {
+    return firebase.storage().ref('avatars').child(user.uid).getDownloadURL();
+  }
+};
+export const uploadPhotoURL = (image: any) => {
+  const user = firebase.auth().currentUser;
+  if (user) {
+    return firebase.storage().ref('avatars').child(user.uid).put(image);
+  }
+};
 export const updateUserData = (
   firstName: string,
   lastName: string,

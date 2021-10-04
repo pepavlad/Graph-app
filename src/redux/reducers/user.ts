@@ -6,6 +6,7 @@ import { User } from '../../interfaces/User';
 
 export interface UserState {
   userData: User;
+  photoUrl: string;
 }
 
 const initialState = {
@@ -14,10 +15,16 @@ const initialState = {
     firstName: '',
     lastName: '',
   },
+  photoUrl: '',
 };
 
 export const userReducer = createReducer<UserState>(initialState, {
   [UserActionTypes.SET_DATA]: (state: UserState, action: AnyAction) => ({
+    ...state,
     userData: action.payload,
+  }),
+  [UserActionTypes.GET_PHOTO_URL]: (state: UserState, action: AnyAction) => ({
+    ...state,
+    photoUrl: action.payload,
   }),
 });

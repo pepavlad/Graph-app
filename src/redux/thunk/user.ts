@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import React from 'react';
 import * as UserServices from '../../services/user';
 import { User } from '../../interfaces/User';
-import { setDataAction } from '../actions/user';
+import { setDataAction, setPhotoUrlAction } from '../actions/user';
 
 export const getData = () => {
   return (dispatch: Dispatch) => {
@@ -16,6 +16,18 @@ export const getData = () => {
         })
       );
     });
+  };
+};
+export const getUserPhoto = () => {
+  return (dispatch: Dispatch) => {
+    UserServices.getPhotoURL()!.then(url => {
+      dispatch(setPhotoUrlAction(url));
+    });
+  };
+};
+export const updateUserPhoto = (image: any) => {
+  return (dispatch: Dispatch) => {
+    UserServices.uploadPhotoURL(image)!;
   };
 };
 export const updateData = (
