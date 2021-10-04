@@ -1,0 +1,125 @@
+.userpage {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: #26c6da;
+  width: 1000px;
+  height: 600px;
+  margin: 100px auto;
+  padding: 50px 0 100px 100px;
+  -webkit-box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
+  .graph_item {
+    i {
+      cursor: pointer;
+    }
+  }
+  .title {
+    width: 50%;
+    height: 190px;
+    padding-top: 30px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    form {
+      margin: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .valid {
+        border-bottom: 1px solid #26c6da;
+        box-shadow: 0 1px 0 0 #26c6da;
+      }
+      span {
+        margin: 0 auto;
+      }
+      input {
+        display: flex;
+        align-items: center;
+      }
+      .file {
+        margin-left: 0;
+      }
+      .upload {
+        width: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    .username {
+      font-size: 30px;
+      width: 270px;
+    }
+    img {
+      width: 150px;
+      height: 150px;
+      margin-right: 20px;
+    }
+    .btn {
+      margin-left: 8px;
+      display: flex;
+      align-items: center;
+      width: 145px;
+      height: 30px;
+      background-color: #26c6da;
+      cursor: pointer;
+      font-size: 12px;
+    }
+  }
+  .userinfo {
+    padding-right: 50px;
+    margin-top: 20px;
+    width: 50%;
+    form {
+      margin: 0;
+    }
+    input::placeholder {
+      color: #000;
+    }
+    .userinfo_btn {
+      .btn {
+        width: 95px;
+        background-color: #26c6da;
+        i {
+          margin: 0;
+        }
+      }
+    }
+  }
+  .graphs_title {
+    display: flex;
+    padding-top: 50px;
+    flex-direction: column;
+    justify-content: start;
+    font-size: 30px;
+    margin: 32px 0 0 0;
+    width: 50%;
+    height: 180px;
+    .description {
+      font-size: 14px;
+    }
+  }
+  .graphs {
+    width: 50%;
+    ul {
+      padding-right: 20px;
+      li {
+        width: 60%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2px;
+        color: #0097a7;
+        border: 1px solid #26c6da;
+        padding: 5px;
+        .icons {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+  }
+}
