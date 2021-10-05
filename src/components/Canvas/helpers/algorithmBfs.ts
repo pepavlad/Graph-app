@@ -1,7 +1,7 @@
 import React from 'react';
 import { IVertic } from '../../../interfaces/IVertic';
 
-const bfs = (
+export const bfs = (
   event: React.MouseEvent,
   links: number[][],
   nodes: { [key: string]: number[] },
@@ -47,5 +47,3 @@ const bfs = (
     }
   }
 };
-
-export default bfs;

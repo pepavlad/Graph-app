@@ -3,12 +3,7 @@ import { Dispatch } from 'redux';
 import { IVertic } from '../../../interfaces/IVertic';
 import { Coords } from '../../../interfaces/coords';
 import getMousePos from './getMousePos';
-import {
-  selectVerticAction,
-  unselectVerticAction,
-  changeCoordsAction,
-} from '../../../redux/actions/graphs';
-import render from './render';
+import { changeCoordsAction } from '../../../redux/actions/graphs';
 
 const getNodeByPos = (
   event: React.MouseEvent<Element, MouseEvent>,
@@ -33,19 +28,18 @@ export const selectToMoveVertic = (
   ctx: CanvasRenderingContext2D | null,
   setStartPoint: React.Dispatch<React.SetStateAction<Coords | undefined>>
 ) => {
-  return (dispatch: Dispatch) => {
-    if (ref.current) {
-      const pos = getMousePos(ref.current, event);
-      const vertic = getNodeByPos(event, vertics, ctx);
-      if (vertic !== undefined) {
-        const newVertics = vertics.map(vert =>
-          vert.num === vertic.num ? { ...vert, isSelectedFirst: true } : vert
-        );
-        setStartPoint({ x: pos.x - vertic.x, y: pos.y - vertic.y });
-        dispatch(selectVerticAction(newVertics));
-      }
+  if (ref.current) {
+    const pos = getMousePos(ref.current, event);
+    const vertic = getNodeByPos(event, vertics, ctx);
+    if (vertic !== undefined) {
+      const newVertics = vertics.map(vert =>
+        vert.num === vertic.num ? { ...vert, isSelectedFirst: true } : vert
+      );
+      setStartPoint({ x: pos.x - vertic.x, y: pos.y - vertic.y });
+      return newVertics;
     }
-  };
+    return vertics;
+  }
 };
 
 export const mouseMoveEvent = (
@@ -56,19 +50,16 @@ export const mouseMoveEvent = (
   canvasCtxRef: React.MutableRefObject<CanvasRenderingContext2D | null>,
   links: number[][]
 ) => {
-  return (dispatch: Dispatch) => {
-    if (ref.current && startPoint) {
-      const pos = getMousePos(ref.current, event);
-      const [vertic] = vertics.filter(elem => elem.isSelectedFirst);
-      if (vertic !== undefined) {
-        const verticWithNewCoords = vertics.map(elem =>
-          elem.num === vertic.num
-            ? { ...elem, x: pos.x - startPoint.x, y: pos.y - startPoint.y }
-            : elem
-        );
-        dispatch(changeCoordsAction(verticWithNewCoords));
-        render(vertics, canvasCtxRef, ref, links);
-      }
+  if (ref.current && startPoint) {
+    const pos = getMousePos(ref.current, event);
+    const [vertic] = vertics.filter(elem => elem.isSelectedFirst);
+    if (vertic !== undefined) {
+      const verticWithNewCoords = vertics.map(elem =>
+        elem.num === vertic.num
+          ? { ...elem, x: pos.x - startPoint.x, y: pos.y - startPoint.y }
+          : elem
+      );
+      return verticWithNewCoords;
     }
-  };
+  }
 };

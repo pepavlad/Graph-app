@@ -1,7 +1,7 @@
 import React from 'react';
 import { IVertic } from '../../../interfaces/IVertic';
 
-const visit = (
+export const visit = (
   obj: {
     [key: string]: { [key: string]: {} };
   },
@@ -17,7 +17,7 @@ const visit = (
   });
 };
 
-const dfs = (
+export const dfs = (
   event: React.MouseEvent,
   links: number[][],
   obj: {
@@ -50,4 +50,3 @@ const dfs = (
     visit(nodes, fn, []);
   }
 };
-export default dfs;

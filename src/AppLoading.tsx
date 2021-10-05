@@ -6,14 +6,14 @@ import { authState } from './interfaces/auth';
 interface AppLoadingProps {
   authState: authState;
 }
-const AppLoading: React.FC<AppLoadingProps> = ({ authState }) => {
+const AppLoading: React.FC<AppLoadingProps> = () => {
   const history = useHistory();
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        if (authState.authenticated) {
+        if (user.emailVerified) {
           history.push('/home');
-        } else if (authState.needConfirm) {
+        } else {
           history.push('/confirm');
         }
       } else {

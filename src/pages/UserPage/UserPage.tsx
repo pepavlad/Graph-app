@@ -22,7 +22,7 @@ const UserPage: React.FC = () => {
   const userData = useSelector(selectUser);
   const userPhoto = useSelector(selectUserPhoto);
   const [photoURL, setPhotoURL] = useState<string>(
-    'https://www.vippng.com/png/detail/412-4125354_person-circle-comments-profile-icon-png-white-transparent.png'
+    ''
   );
   const [data, setData] = useState<User>({
     firstName: '',
@@ -94,7 +94,7 @@ const UserPage: React.FC = () => {
   return (
     <div className='userpage'>
       <div className='title'>
-        <img src={userPhoto} alt='' />
+        <img src={userPhoto || 'https://www.vippng.com/png/detail/412-4125354_person-circle-comments-profile-icon-png-white-transparent.png'} alt='' />
         <p className='username'>Hello, {userData.firstName}</p>
         <form action='#' onSubmit={uploadPhoto}>
           <div className='file-field input-field'>

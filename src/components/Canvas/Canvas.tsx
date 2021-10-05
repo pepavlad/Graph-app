@@ -5,17 +5,21 @@ import render from './helpers/render';
 import {
   addVerticAction,
   unselectVerticAction,
+  selectVerticAction,
   createNewProjectAction,
+  connectVerticAction,
+  changeCoordsAction,
+  deleteVerticAction,
 } from '../../redux/actions/graphs';
 import { selectLinks, selectVertics } from '../../redux/selectors/graph';
-import draw from './helpers/addVertic';
-import selectVertic from './helpers/selectVertic';
-import connectVertic from './helpers/connectVertic';
+import { addVertic } from './helpers/addVertic';
+import { selectVertic } from './helpers/selectVertic';
+import { connectVertic } from './helpers/connectVertic';
 import { selectToMoveVertic, mouseMoveEvent } from './helpers/moveVertic';
 import { Coords } from '../../interfaces/coords';
-import deleteVertic from './helpers/deleteVertic';
-import dfs from './helpers/algorithmDfs';
-import bfs from './helpers/algorithmBfs';
+import { deleteVertic } from './helpers/deleteVertic';
+import { dfs } from './helpers/algorithmDfs';
+import { bfs } from './helpers/algorithmBfs';
 
 interface CanvasProps {
   btnType: string;
@@ -31,9 +35,22 @@ const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
   const canvasCtxRef = React.useRef<CanvasRenderingContext2D | null>(null);
   const mouseMove = (event: React.MouseEvent) => {
     if (btnType === 'move') {
-      dispatch(
+      if (
         mouseMoveEvent(event, ref, vertics, startPoint, canvasCtxRef, links)
-      );
+      ) {
+        dispatch(
+          changeCoordsAction(
+            mouseMoveEvent(
+              event,
+              ref,
+              vertics,
+              startPoint,
+              canvasCtxRef,
+              links
+            )!
+          )
+        );
+      }
     }
   };
   const mouseUp = () => {
@@ -47,16 +64,26 @@ const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
       const ctx = canvasCtxRef.current;
       switch (btnType) {
         case 'add':
-          dispatch(addVerticAction(draw(event, ref, ctx, vertics)!));
+          dispatch(addVerticAction(addVertic(event, ref, ctx, vertics)!));
           break;
         case 'connect':
-          dispatch(selectVertic(event, ctx, vertics));
+          if (selectVertic(event, ctx, vertics)) {
+            dispatch(selectVerticAction(selectVertic(event, ctx, vertics)!));
+          }
           break;
         case 'move':
-          dispatch(selectToMoveVertic(event, ref, vertics, ctx, setStartPoint));
+          dispatch(
+            selectVerticAction(
+              selectToMoveVertic(event, ref, vertics, ctx, setStartPoint)!
+            )
+          );
           break;
         case 'delete':
-          dispatch(deleteVertic(event, ctx, vertics, links));
+          if (deleteVertic(event, ctx, vertics, links)) {
+            dispatch(
+              deleteVerticAction(deleteVertic(event, ctx, vertics, links)!)
+            );
+          }
           break;
         case 'dfs':
           const obj = {};
@@ -101,7 +128,9 @@ const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
         (elem: IVertic) => elem.isSelectedFirst || elem.isSelectedSecond
       ).length === 2
     ) {
-      dispatch(connectVertic(vertics, links));
+      if (connectVertic(vertics, links)) {
+        dispatch(connectVerticAction(connectVertic(vertics, links)!));
+      }
       dispatch(unselectVerticAction());
     }
     render(vertics, canvasCtxRef, ref, links);

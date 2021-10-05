@@ -3,7 +3,7 @@ import { IVertic } from '../../../interfaces/IVertic';
 import getMousePos from './getMousePos';
 import drawVertic from './drawVertic';
 
-const draw = (
+export const addVertic = (
   event: React.MouseEvent<Element, MouseEvent>,
   ref: React.MutableRefObject<HTMLCanvasElement | null>,
   ctx: CanvasRenderingContext2D | null,
@@ -31,5 +31,3 @@ const draw = (
     };
   }
 };
-
-export default draw;

@@ -10,7 +10,7 @@ export const getUserData = () => {
 };
 export const getPhotoURL = () => {
   const user = firebase.auth().currentUser;
-  if (user) {
+  if (user && firebase.storage().ref('avatars').child(user.uid)) {
     return firebase.storage().ref('avatars').child(user.uid).getDownloadURL();
   }
 };

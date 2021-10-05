@@ -11,11 +11,6 @@ const SignInForm: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const signInError = useSelector(selectSignInError);
-  // useEffect(() => {
-  //   if (signInError) {
-  //     dispatch(successSignInAction());
-  //   }
-  // }, [signInError, dispatch]);
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const { email, password } = event.target as HTMLInputElement & {

@@ -3,7 +3,6 @@ import M from 'materialize-css';
 import './Home.scss';
 import Canvas from '../../components/Canvas/Canvas';
 import SaveGraphModal from '../../components/SaveGraphModal/SaveGraphModal';
-import selectVertic from '../../components/Canvas/helpers/selectVertic';
 
 const Home: React.FC = () => {
   const [btnType, setBtnType] = useState('add');
@@ -37,57 +36,55 @@ const Home: React.FC = () => {
       <SaveGraphModal />
       <div className='home'>
         <div className='btns'>
-          <a
+          <button
             onClick={handleClick('move')}
             className='waves-effect btn move graph-btn'
           >
             <i className='material-icons'>open_with</i>
-          </a>
-          <a
+          </button>
+          <button
             onClick={handleClick('add')}
             className='waves-effect btn graph-btn active'
           >
             <i className='material-icons'>add</i>
             Добавить вершину
-          </a>
-          <a
+          </button>
+          <button
             onClick={handleClick('connect')}
             className='waves-effect btn graph-btn'
           >
             <i className='material-icons'>power_input</i>
             Соединить вершины
-          </a>
-          <a
+          </button>
+          <button
             onClick={handleClick('delete')}
             className='waves-effect btn graph-btn delete'
           >
             <i className='material-icons'>close</i>
             Удалить
-          </a>
-          <a
+          </button>
+          <button
             onClick={handleClick('bfs dfs')}
             className='dropdown-trigger btn graph-btn'
-            href='#'
             data-target='dropdown'
           >
             Алгоритмы<i className='material-icons right'>settings</i>
-          </a>
+          </button>
           <ul id='dropdown' className='dropdown-content'>
             <li>
-              <a onClick={handleClick('bfs')} href='#!'>
-                Поиск в ширину
-              </a>
+              <span onClick={handleClick('bfs')}>Поиск в ширину</span>
             </li>
             <li>
-              <a onClick={handleClick('dfs')} href='#!'>
-                Поиск в глубину
-              </a>
+              <span onClick={handleClick('dfs')}>Поиск в глубину</span>
             </li>
           </ul>
-          <a onClick={showModal} className='waves-effect btn graph-btn save'>
+          <button
+            onClick={showModal}
+            className='waves-effect btn graph-btn save'
+          >
             <i className='material-icons'>save</i>
             Сохранить
-          </a>
+          </button>
         </div>
         <Canvas btnType={btnType} />
       </div>

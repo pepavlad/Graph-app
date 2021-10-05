@@ -31,7 +31,7 @@ const render = (
       });
     }
     vertics.forEach(elem => {
-      const isSelected = elem.isSelectedFirst || elem.isSelectedSecond;
+      const isSelected = elem.isSelectedFirst;
       const color = isSelected ? '#4fc3f7' : '#80deea';
       drawVertic(ctx, color, elem, elem.num);
     });

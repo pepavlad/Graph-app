@@ -14,7 +14,7 @@ const firebaseConfig = {
   databaseURL:
     'https://graph-fd4a0-default-rtdb.europe-west1.firebasedatabase.app',
   projectId: 'graph-fd4a0',
-  storageBucket: 'graph-fd4a0.appspot.com',
+  storageBucket: "graph-fd4a0.appspot.com",
   messagingSenderId: '694162396498',
   appId: '1:694162396498:web:c233f72640520cd4b2968b',
 };

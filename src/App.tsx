@@ -31,7 +31,7 @@ const App: React.FC<{}> = () => {
         setAuthState({ authenticated: false, needConfirm: false });
       }
     });
-  }, [setAuthState]);
+  }, [authState]);
 
   if (!authState) {
     return (
@@ -45,11 +45,7 @@ const App: React.FC<{}> = () => {
       <div className='App'>
         <Navbar />
         <Switch>
-          <Route
-            exact
-            path='/'
-            component={() => <AppLoading authState={authState} />}
-          />
+          <Route exact path='/' component={AppLoading} />
           <ProtectedRoute path='/home' component={Home} authState={authState} />
           <ProtectedRoute
             authState={authState}
