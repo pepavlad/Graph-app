@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
+import { TGraphState } from '../../interfaces/graphs';
 
-const graphState = (state: any) => state.graphState;
+const graphState = (state: TGraphState) => state.graphState;
 
 export const selectIsLoading = createSelector(
   graphState,

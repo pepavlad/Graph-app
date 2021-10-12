@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
+import { TUserState } from '../../interfaces/user';
 
-const userState = (state: any) => state.userState;
+const userState = (state: TUserState) => state.userState;
 
 export const selectUser = createSelector(userState, state => state.userData);
 export const selectIsLoadingPhoto = createSelector(userState, state => state.isLoading);

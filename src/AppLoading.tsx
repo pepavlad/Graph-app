@@ -1,12 +1,8 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import firebase from 'firebase';
-import { authState } from './interfaces/auth';
 
-interface AppLoadingProps {
-  authState: authState;
-}
-const AppLoading: React.FC<AppLoadingProps> = () => {
+const AppLoading: React.F = () => {
   const history = useHistory();
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {

@@ -18,6 +18,7 @@ const Input: FC<InputProps> = React.memo(
       <div className='control'>
         <label htmlFor={name}>{label}</label>
         <input
+          {...elemProps}
           className='input'
           type={type}
           placeholder={placeholder}
@@ -27,7 +28,6 @@ const Input: FC<InputProps> = React.memo(
           autoComplete='off'
           min={min}
           minLength={minLength}
-          {...elemProps}
         />
       </div>
     </div>

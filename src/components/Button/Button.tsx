@@ -12,10 +12,10 @@ const Button: FC<ButtonProps> = ({
   ...elemProps
 }) => (
   <button
+  {...elemProps}
     type={type}
     className={`button ${className}`}
     onClick={onClick}
-    {...elemProps}
   >
     {text}
   </button>
