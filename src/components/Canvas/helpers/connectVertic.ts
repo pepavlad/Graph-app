@@ -1,5 +1,3 @@
-import { Dispatch } from 'redux';
-import { connectVerticAction } from '../../../redux/actions/graphs';
 import { IVertic } from '../../../interfaces/IVertic';
 
 export const connect = (vertics: IVertic[]) => {

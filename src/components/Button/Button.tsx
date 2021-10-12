@@ -9,13 +9,13 @@ const Button: FC<ButtonProps> = ({
   className,
   onClick,
   type,
-  disabled,
+  ...elemProps
 }) => (
   <button
     type={type}
     className={`button ${className}`}
     onClick={onClick}
-    disabled={disabled}
+    {...elemProps}
   >
     {text}
   </button>

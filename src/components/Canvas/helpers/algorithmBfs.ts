@@ -32,18 +32,16 @@ export const bfs = (
     visited[startVertic.num] = true;
     fn(startVertic.num);
     while (queue.length > 0) {
-      const currentVerticId: number | undefined = queue.shift();
-      if (currentVerticId) {
-        const currentVertic = nodes[currentVerticId];
-        currentVertic.forEach((elem, index) => {
-          const target = currentVertic[index];
-          if (!visited[target]) {
-            visited[target] = true;
-            queue.push(target);
-            fn(target);
-          }
-        });
-      }
+      const currentVerticId = queue.shift();
+      const currentVertic = nodes[currentVerticId!];
+      currentVertic.forEach((elem, index) => {
+        const target = currentVertic[index];
+        if (!visited[target]) {
+          visited[target] = true;
+          queue.push(target);
+          fn(target);
+        }
+      });
     }
   }
 };

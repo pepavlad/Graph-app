@@ -4,6 +4,8 @@ import { User } from '../../interfaces/User';
 enum UserActionTypes {
   SET_DATA = '[User] SET_DATA',
   GET_PHOTO_URL = '[User] GET_PHOTO_URL',
+  ERROR_PHOTO_URL = '[User] ERROR_PHOTO_URL',
+  SUCCESS_PHOTO_URL = '[User] SUCCESS_PHOTO_URL'
 }
 
 const setDataAction = createAction(
@@ -14,5 +16,13 @@ const setPhotoUrlAction = createAction(
   UserActionTypes.GET_PHOTO_URL,
   (payload: string) => payload
 );
+const errorPhotoUrlAction = createAction(
+  UserActionTypes.ERROR_PHOTO_URL,
+  (payload: string) => payload
+);
+const successPhotoUrlAction = createAction(
+  UserActionTypes.SUCCESS_PHOTO_URL,
+  (payload: string) => payload
+);
 
-export { setDataAction, UserActionTypes, setPhotoUrlAction };
+export { setDataAction, UserActionTypes, setPhotoUrlAction, errorPhotoUrlAction, successPhotoUrlAction};

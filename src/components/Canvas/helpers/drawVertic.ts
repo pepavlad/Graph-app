@@ -1,4 +1,3 @@
-
 import { IVertic } from '../../../interfaces/IVertic';
 
 const drawVertic = (

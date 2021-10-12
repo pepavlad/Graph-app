@@ -1,9 +1,7 @@
 import React from 'react';
-import { Dispatch } from 'redux';
 import { IVertic } from '../../../interfaces/IVertic';
 import { Coords } from '../../../interfaces/coords';
 import getMousePos from './getMousePos';
-import { changeCoordsAction } from '../../../redux/actions/graphs';
 
 const getNodeByPos = (
   event: React.MouseEvent<Element, MouseEvent>,

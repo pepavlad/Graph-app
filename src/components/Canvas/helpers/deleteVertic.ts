@@ -1,7 +1,5 @@
 import React from 'react';
-import { Dispatch } from 'redux';
 import { IVertic } from '../../../interfaces/IVertic';
-import { deleteVerticAction } from '../../../redux/actions/graphs';
 
 export const deleteVertic = (
   event: React.MouseEvent,

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { successSignInAction } from '../../redux/actions/auth';
@@ -19,6 +19,11 @@ const SignInForm: React.FC = () => {
     };
     dispatch(signIn(email.value, password.value, history));
   };
+  useEffect(() => {
+    if (signInError) {
+      dispatch(successSignInAction());
+    }
+  }, [history]);
 
   return (
     <form onSubmit={handleSubmit} className='white'>

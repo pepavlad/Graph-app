@@ -1,8 +1,11 @@
 import { Dispatch } from 'redux';
-import React from 'react';
 import * as UserServices from '../../services/user';
-import { User } from '../../interfaces/User';
-import { setDataAction, setPhotoUrlAction } from '../actions/user';
+import {
+  setDataAction,
+  setPhotoUrlAction,
+  errorPhotoUrlAction,
+  successPhotoUrlAction,
+} from '../actions/user';
 
 export const getData = () => {
   return (dispatch: Dispatch) => {
@@ -20,14 +23,23 @@ export const getData = () => {
 };
 export const getUserPhoto = () => {
   return (dispatch: Dispatch) => {
-    UserServices.getPhotoURL()!.then(url => {
-      dispatch(setPhotoUrlAction(url));
-    });
+    UserServices.getPhotoURL()!
+      .then(url => {        
+        dispatch(setPhotoUrlAction(url));
+      })
+      .catch(error => {            
+        dispatch(errorPhotoUrlAction(error.message));
+      });
   };
 };
-export const updateUserPhoto = (image: any) => {
+export const updateUserPhoto = (image: File) => {
   return (dispatch: Dispatch) => {
-    UserServices.uploadPhotoURL(image)!;
+    UserServices.uploadPhotoURL(image)!.then(() => {
+        dispatch(successPhotoUrlAction(''));
+      })
+      .catch(error => {        
+        dispatch(errorPhotoUrlAction(error.message));
+      });
   };
 };
 export const updateData = (
@@ -36,13 +48,15 @@ export const updateData = (
   age: string
 ) => {
   return (dispatch: Dispatch) => {
-    UserServices.updateUserData(firstName, lastName, age);
-    dispatch(
-      setDataAction({
-        age,
-        firstName,
-        lastName,
-      })
-    );
+    UserServices.updateUserData(firstName, lastName, age)!.then(() => {
+      dispatch(
+        setDataAction({
+          age,
+          firstName,
+          lastName,
+        })
+      );
+    });
+    
   };
 };

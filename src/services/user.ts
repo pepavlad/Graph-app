@@ -1,6 +1,4 @@
 import firebase from 'firebase';
-import React from 'react';
-import { User } from '../interfaces/User';
 
 export const getUserData = () => {
   const user = firebase.auth().currentUser;
@@ -10,11 +8,11 @@ export const getUserData = () => {
 };
 export const getPhotoURL = () => {
   const user = firebase.auth().currentUser;
-  if (user && firebase.storage().ref('avatars').child(user.uid)) {
+  if (user) {
     return firebase.storage().ref('avatars').child(user.uid).getDownloadURL();
   }
 };
-export const uploadPhotoURL = (image: any) => {
+export const uploadPhotoURL = (image: File) => {
   const user = firebase.auth().currentUser;
   if (user) {
     return firebase.storage().ref('avatars').child(user.uid).put(image);

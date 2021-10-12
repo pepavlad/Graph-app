@@ -1,5 +1,4 @@
 import React from 'react';
-import { Dispatch } from 'redux';
 import { IVertic } from '../../../interfaces/IVertic';
 
 const select = (vertics: IVertic[], vertic: IVertic) => {

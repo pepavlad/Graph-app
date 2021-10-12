@@ -25,14 +25,14 @@ interface CanvasProps {
   btnType: string;
 }
 
-const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
+const Canvas: React.FC<CanvasProps> = React.memo(({ btnType }: CanvasProps) => {
   const [startPoint, setStartPoint] = useState<Coords>();
   const [resultOfAlgorithm, setResultOfAlgorithm] = useState('');
   const dispatch = useDispatch();
   const links = useSelector(selectLinks);
   const vertics = useSelector(selectVertics);
   const ref = useRef<HTMLCanvasElement | null>(null);
-  const canvasCtxRef = React.useRef<CanvasRenderingContext2D | null>(null);
+  const canvasCtxRef = useRef<CanvasRenderingContext2D | null>(null);
   const mouseMove = (event: React.MouseEvent) => {
     if (btnType === 'move') {
       if (
@@ -147,11 +147,9 @@ const Canvas: React.FC<CanvasProps> = ({ btnType }) => {
         width='1100'
         height='570'
       />
-      {resultOfAlgorithm.length && (
-        <div className='result'>{resultOfAlgorithm}</div>
-      )}
+      {resultOfAlgorithm && <div className='result'>{resultOfAlgorithm}</div>}
     </div>
   );
-};
+});
 
 export default Canvas;

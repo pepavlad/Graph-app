@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './SaveGraphModal.scss';
 import Input from '../Input/Input';
@@ -6,22 +6,23 @@ import Button from '../Button/Button';
 import { selectVertics, selectLinks } from '../../redux/selectors/graph';
 import { saveGraph } from '../../redux/thunk/graphs';
 
-const SaveGraphModal: React.FC = () => {
+type SaveGraphModalProp = {
+  closeModal: () => void;
+};
+const SaveGraphModal = React.memo(({ closeModal }: SaveGraphModalProp) => {
   const dispatch = useDispatch();
   const vertics = useSelector(selectVertics);
   const links = useSelector(selectLinks);
-  const closeModal = () => {
-    document.querySelector('.modal_popup')!.classList.remove('showModal');
-  };
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-    const pngURL = canvas.toDataURL();
     const { graphname } = event.target as HTMLInputElement & {
       graphname: { value: string };
     };
     dispatch(saveGraph(vertics, links, graphname.value));
+    closeModal();
   };
+
   return (
     <div className='modal_popup'>
       <div className='modal_window'>
@@ -42,6 +43,6 @@ const SaveGraphModal: React.FC = () => {
       </div>
     </div>
   );
-};
+});
 
 export default SaveGraphModal;

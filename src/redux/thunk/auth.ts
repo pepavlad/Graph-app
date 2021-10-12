@@ -33,7 +33,9 @@ export const register = (
   };
 };
 
-export const signIn = (email: string, password: string, history: any) => {
+export const signIn = (email: string, password: string, history: {
+        push(url: string): void;
+    }) => {
   return async (dispatch: Dispatch) => {
     dispatch(signInAction());
     AuthService.signIn(email, password)
@@ -46,7 +48,9 @@ export const signIn = (email: string, password: string, history: any) => {
       });
   };
 };
-export const signOut = (history: any) => {
+export const signOut = (history: {
+        push(url: string): void;
+    }) => {
   return (dispatch: Dispatch): void => {
     dispatch(signOutAction());
     AuthService.signOut()

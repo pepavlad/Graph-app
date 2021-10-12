@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import React from 'react';
 import { Dispatch } from 'redux';
 import * as GraphService from '../../services/graphs';
 import {
@@ -15,27 +16,34 @@ export const saveGraph = (
   graphName: string
 ) => {
   return () => {
-    GraphService.saveGraph(vertics, links, graphName)!.then(() => {
-      document.querySelector('.modal_popup')!.classList.remove('showModal');
-    });
+    GraphService.saveGraph(vertics, links, graphName)!;
   };
 };
 
-export const downloadGraph = (graphname: string) => {
+export const downloadGraph = (
+  graphname: string,
+  history: {
+    push(url: string): void;
+  }
+) => {
   return (dispatch: Dispatch) => {
-    GraphService.downloadGraph(graphname)!.on('value', snapshot => {
+    GraphService.downloadGraph(graphname)?.on('value', snapshot => {
       const data = snapshot.val();
-      dispatch(
-        downloadGraphAction({ vertics: data.vertics, links: data.links })
-      );
+      if (data) {
+        dispatch(
+          downloadGraphAction({ vertics: data.vertics, links: data.links })
+        );
+        history.push('/home');
+      }
     });
   };
 };
 
 export const deleteGraph = (graphname: string) => {
   return (dispatch: Dispatch) => {
-    GraphService.deleteGraph(graphname);
-    dispatch(deleteGraphAction(graphname));
+    GraphService.deleteGraph(graphname)?.then(() => {
+      dispatch(deleteGraphAction(graphname));
+    });
   };
 };
 

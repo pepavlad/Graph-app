@@ -4,16 +4,19 @@ import { useDispatch } from 'react-redux';
 import { signOut } from '../../redux/thunk/auth';
 import { createNewProjectAction } from '../../redux/actions/graphs';
 
-const SignedInLinks: React.FC = () => {
+const SignedInLinks: React.FC = React.memo(() => {
   const dispatch = useDispatch();
   const history = useHistory();
+
   const createNewProject = () => {
     dispatch(createNewProjectAction());
   };
+
   const logOut = () => {
     history.push('/login');
     dispatch(signOut(history));
   };
+
   return (
     <ul id='nav-mobile' className='right hide-on-med-and-down links'>
       <li>
@@ -31,6 +34,6 @@ const SignedInLinks: React.FC = () => {
       </li>
     </ul>
   );
-};
+});
 
 export default SignedInLinks;
