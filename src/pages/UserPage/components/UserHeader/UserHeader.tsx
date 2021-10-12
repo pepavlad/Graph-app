@@ -14,7 +14,6 @@ interface UserHeaderProps {
 const UserHeader: React.FC<UserHeaderProps> = React.memo(
   ({ userData }: UserHeaderProps) => {
     const dispatch = useDispatch();
-
     const userPhoto = useSelector(selectUserPhoto);
     const isLoadingPhoto = useSelector(selectIsLoadingPhoto);
     const [photoURL, setPhotoURL] = useState<string>('');
@@ -61,7 +60,10 @@ const UserHeader: React.FC<UserHeaderProps> = React.memo(
         <div className='user_data'>
           <img
             className='user_photo'
-            src={photoURL || 'https://via.placeholder.com/150'}
+            src={
+              photoURL ||
+              'https://www.vippng.com/png/detail/412-4125354_person-circle-comments-profile-icon-png-white-transparent.png'
+            }
             alt=''
           />
           <p className='username'>Hello, {userData.firstName}</p>
