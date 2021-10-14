@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import firebase from 'firebase';
 
-const AppLoading: React.F = () => {
+const AppLoading: React.FC = () => {
   const history = useHistory();
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
